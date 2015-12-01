@@ -17,7 +17,7 @@ import mum.mpp.tay.entity.Member;
  */
 public interface LibrarianInterface {
 
-    CheckoutRecord checkout(Book book, Member member);
+    CheckoutRecord checkout(BookCopy copy, Member member);
 
     boolean isBookAvailable(String ISBN);
 
@@ -27,7 +27,7 @@ public interface LibrarianInterface {
 
     Member getMemberById(long id);
 
-    List<CheckoutRecord> getMemberRecord();
+    List<CheckoutRecord> getMemberRecord(long memberId);
 
     boolean checkIn(BookCopy copy, Member member);
 

@@ -7,9 +7,12 @@ package mum.mpp.tay.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -17,6 +20,12 @@ import javax.persistence.OneToMany;
  * @author 984761
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(
+            name = "findByTitle",
+            query = "SELECT b FROM Book b WHERE b.title LIKE :title"
+    )
+})
 public class Book implements Serializable {
 
     public Book(String iSBNNumber, String title, List<Author> authors, int maximumCheckoutDurationInDays, List<BookCopy> copies) {
@@ -77,6 +86,35 @@ public class Book implements Serializable {
 
     public void setCopies(List<BookCopy> copies) {
         this.copies = copies;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" + "iSBNNumber=" + iSBNNumber + ", title=" + title + 
+                ", authors=" + authors + ", maximumCheckoutDurationInDays=" 
+                + maximumCheckoutDurationInDays + ", copies=" + copies + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.iSBNNumber);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Book other = (Book) obj;
+        if (!Objects.equals(this.iSBNNumber, other.iSBNNumber)) {
+            return false;
+        }
+        return true;
     }
 
 }
