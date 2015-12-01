@@ -8,20 +8,23 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			GridPane root = (GridPane)FXMLLoader.load(getClass().getResource("views/Login.fxml"));
+			FXMLLoader loader = new FXMLLoader();
+			GridPane root = loader.load(getClass().getResource("views/Login.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("css/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			LoginController c=loader.getController();
+			c.setPrimaryStage(primaryStage);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void main(String[] args) {
-		launch(args);
-	}
+	
 }

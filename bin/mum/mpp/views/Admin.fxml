@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
@@ -13,13 +13,11 @@
             <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="140.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <SplitPane dividerPositions="0.29797979797979796" prefHeight="245.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-              <items>
-                <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="160.0" prefHeight="140.0" prefWidth="200.0" />
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-              </items>
-            </SplitPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
+         <left>
+            <TreeView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </left>
       </BorderPane>
    </center>
 </BorderPane>
