@@ -5,10 +5,20 @@
  */
 package mum.mpp.tay.entity;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  *
  * @author 984761
  */
-public class Admin extends Staff{
-    
+@Entity
+@Table(name = "admin_staff")
+public class Admin extends Staff implements Serializable {
+
+    public Admin() {
+    }
+
+
 }

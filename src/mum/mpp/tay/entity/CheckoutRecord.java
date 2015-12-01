@@ -5,25 +5,50 @@
  */
 package mum.mpp.tay.entity;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author 984761
  */
-public class CheckoutRecord {
+@Entity
+public class CheckoutRecord implements Serializable {
+
+    public CheckoutRecord(BookCopy book, Date checkoutDate, Date dueDate, Date checkinDate, Member member, Fine fine) {
+        this.book = book;
+        this.checkoutDate = checkoutDate;
+        this.dueDate = dueDate;
+        this.checkinDate = checkinDate;
+        this.member = member;
+        this.fine = fine;
+    }
+
+    public CheckoutRecord() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @ManyToOne
     private BookCopy book;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date checkoutDate;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dueDate;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date checkinDate;
+    @ManyToOne
     private Member member;
+    @OneToOne(mappedBy = "record", orphanRemoval = true)
     private Fine fine;
 
     public long getId() {

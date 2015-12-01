@@ -5,6 +5,8 @@
  */
 package mum.mpp.tay.entity;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +15,8 @@ import javax.persistence.Id;
  *
  * @author 984761
  */
-public class Author extends Person {
+@Entity
+public class Author extends Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

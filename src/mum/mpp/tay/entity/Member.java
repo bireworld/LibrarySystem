@@ -5,20 +5,31 @@
  */
 package mum.mpp.tay.entity;
 
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author 984761
  */
-public class Member extends Person {
+@Entity
+@Table(name = "member_table")
+public class Member extends Person implements Serializable {
+
+    public Member() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long uniqueMemberNumber;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "member")
     private List<CheckoutRecord> records;
 
     public long getUniqueMemberNumber() {

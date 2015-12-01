@@ -5,31 +5,46 @@
  */
 package mum.mpp.tay.entity;
 
+import java.io.Serializable;
 import java.util.List;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author 984761
  */
-public class Book {
+@Entity
+public class Book implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String ISBNNumber;
-    private String title;
-    private List<Author> authors;
-    private int maximumCheckoutDurationInDays;
-    private List<BookCopy> copies;
-
-    public String getISBNNumber() {
-        return ISBNNumber;
+    public Book(String iSBNNumber, String title, List<Author> authors, int maximumCheckoutDurationInDays, List<BookCopy> copies) {
+        this.iSBNNumber = iSBNNumber;
+        this.title = title;
+        this.authors = authors;
+        this.maximumCheckoutDurationInDays = maximumCheckoutDurationInDays;
+        this.copies = copies;
     }
 
-    public void setISBNNumber(String ISBNNumber) {
-        this.ISBNNumber = ISBNNumber;
+    public Book() {
+    }
+
+    @Id
+    private String iSBNNumber;
+    private String title;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Author> authors;
+    private int maximumCheckoutDurationInDays;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "book")
+    private List<BookCopy> copies;
+
+    public String getiSBNNumber() {
+        return iSBNNumber;
+    }
+
+    public void setiSBNNumber(String iSBNNumber) {
+        this.iSBNNumber = iSBNNumber;
     }
 
     public String getTitle() {

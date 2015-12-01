@@ -5,13 +5,26 @@
  */
 package mum.mpp.tay.entity;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 /**
  *
  * @author 984761
  */
-public abstract class Staff {
+@MappedSuperclass
+public abstract class Staff extends Person{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected long uniqueStaffId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "staff_role")
     protected AuthorizationLevel role;
 
     public long getUniqueStaffId() {

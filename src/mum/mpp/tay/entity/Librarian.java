@@ -5,10 +5,17 @@
  */
 package mum.mpp.tay.entity;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+
 /**
  *
  * @author 984761
  */
-public class Librarian extends Staff {
+@Entity
+public class Librarian extends Staff implements Serializable {
+
+    public Librarian() {
+    }
 
 }

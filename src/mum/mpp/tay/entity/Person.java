@@ -5,10 +5,13 @@
  */
 package mum.mpp.tay.entity;
 
+import javax.persistence.MappedSuperclass;
+
 /**
  *
  * @author 984761
  */
+@MappedSuperclass
 public abstract class Person {
 
     protected String firstName;

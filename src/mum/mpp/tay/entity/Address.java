@@ -5,11 +5,23 @@
  */
 package mum.mpp.tay.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author 984761
  */
-public class Address {
+public class Address implements Serializable {
+
+    public Address(String street, String city, String state, String zip) {
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+    }
+
+    public Address() {
+    }
 
     private String street;
     private String city;

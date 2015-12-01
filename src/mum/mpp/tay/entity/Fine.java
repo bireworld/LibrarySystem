@@ -5,22 +5,41 @@
  */
 package mum.mpp.tay.entity;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author 984761
  */
-public class Fine {
+@Entity
+public class Fine implements Serializable {
+
+    public Fine(double amount, Date date, CheckoutRecord record) {
+        this.amount = amount;
+        this.date = date;
+        this.record = record;
+    }
+
+    public Fine() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private double amount;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "record_date")
     private Date date;
+    @OneToOne
     private CheckoutRecord record;
 
     public int getId() {
