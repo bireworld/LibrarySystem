@@ -8,18 +8,26 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.views.AdminController;
+=======
+>>>>>>> origin/master
 
 public class Admin extends Application {
 	
-	private AdminInterface adminInterface;
-	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+<<<<<<< HEAD
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("views/Admin.fxml"));
 		BorderPane parent = loader.load();
 				
+=======
+		BorderPane parent = (BorderPane)FXMLLoader.load(getClass().getResource("views/Admin.fxml"));
+		
+		loadMenuBar(parent);
+		
+>>>>>>> origin/master
 		Scene scene = new Scene(parent);
 		primaryStage.setScene(scene);
 		
@@ -35,20 +43,5 @@ public class Admin extends Application {
 		parent.setTop(menuBar);
 	}
 	
-	public void run() throws Exception {
-		Stage stage = new Stage();
-		start(stage);
-	}
-
-	public AdminInterface getAdminInterface() {
-		return adminInterface;
-	}
-
-	public void setAdminInterface(AdminInterface adminInterface) {
-		this.adminInterface = adminInterface;
-	}
 	
-	public static void main(String[] args) {
-		launch(args);
-	}
 }

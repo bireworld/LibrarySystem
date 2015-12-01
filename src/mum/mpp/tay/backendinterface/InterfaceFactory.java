@@ -12,9 +12,7 @@ package mum.mpp.tay.backendinterface;
 public class InterfaceFactory {
     
     public static Object createAnInterface(String username,String password){
-    	if(username.equals("apollo") && password.equals("123"))
-    		return new Object();
-    	return null;
+        return new Object();
     }
     
 }
