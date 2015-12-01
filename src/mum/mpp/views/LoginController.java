@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import mum.mpp.Main;
 
 public class LoginController {
 	@FXML
@@ -17,11 +16,11 @@ public class LoginController {
 	private Button btnLogin;
 	
     // Reference to the main application.
-    private Main mainApp;
+   // private Main mainApp;
     
-    public void setMainApp(Main mainApp) {
-        this.mainApp = mainApp;
-    }
+    //public void setMainApp(Main mainApp) {
+   //     this.mainApp = mainApp;
+    //}
     
 	@FXML
 	public void btnLogin_click() {
@@ -48,7 +47,7 @@ public class LoginController {
 		
 		//TODO call Amir login API here
         
-        mainApp.showLibrarianOperationDialog();
+    //    mainApp.showLibrarianOperationDialog();
 
 	}
 
