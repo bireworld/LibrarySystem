@@ -33,7 +33,7 @@
       <PasswordField fx:id="pswfPassword" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <children>
-            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#login" text="Button" />
+            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#btnLogin_click" text="Button" />
          </children>
       </HBox>
    </children>
