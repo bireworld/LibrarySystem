@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import mum.mpp.tay.controller.exceptions.NonexistentEntityException;
 import mum.mpp.tay.controller.exceptions.PreexistingEntityException;
 import mum.mpp.tay.entity.Book;
@@ -41,23 +42,9 @@ public class BookJpaController implements Serializable {
         EntityManager em = null;
         try {
             em = getEntityManager();
+
             em.getTransaction().begin();
-            List<BookCopy> attachedCopies = new ArrayList<BookCopy>();
-            for (BookCopy copiesBookCopyToAttach : book.getCopies()) {
-                copiesBookCopyToAttach = em.getReference(copiesBookCopyToAttach.getClass(), copiesBookCopyToAttach.getId());
-                attachedCopies.add(copiesBookCopyToAttach);
-            }
-            book.setCopies(attachedCopies);
             em.persist(book);
-            for (BookCopy copiesBookCopy : book.getCopies()) {
-                Book oldBookOfCopiesBookCopy = copiesBookCopy.getBook();
-                copiesBookCopy.setBook(book);
-                copiesBookCopy = em.merge(copiesBookCopy);
-                if (oldBookOfCopiesBookCopy != null) {
-                    oldBookOfCopiesBookCopy.getCopies().remove(copiesBookCopy);
-                    oldBookOfCopiesBookCopy = em.merge(oldBookOfCopiesBookCopy);
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findBook(book.getiSBNNumber()) != null) {
@@ -118,6 +105,20 @@ public class BookJpaController implements Serializable {
             if (em != null) {
                 em.close();
             }
+        }
+    }
+
+    public Book findByTitle(String title) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            TypedQuery<Book> query = em.createNamedQuery("findByTitle", Book.class);
+            query.setParameter("title", "%" + title + "%");
+            Book book = query.getSingleResult();
+            return book;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -192,5 +193,5 @@ public class BookJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }
