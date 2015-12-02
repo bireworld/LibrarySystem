@@ -18,6 +18,8 @@ import mum.mpp.tay.entity.Member;
  */
 public interface AdminInterface {
 
+    Admin getAdminObject();
+    
     Book addNewBook(Book book) throws ServiceException;
 
     Book editBook(Book book) throws ServiceException;
@@ -38,19 +40,19 @@ public interface AdminInterface {
 
     Librarian getLibrarian(long id) throws ServiceException;
 
-    Librarian searchLibrarianByName(String name) throws ServiceException;
+    List<Librarian> searchLibrarianByName(String name) throws ServiceException;
 
     List<Librarian> getAllLibrarian() throws ServiceException;
 
     Admin getAdmin(long id) throws ServiceException;
 
-    Admin searchAdminByName(String name) throws ServiceException;
+    List<Admin> searchAdminByName(String name) throws ServiceException;
 
     List<Admin> getAllAdmins() throws ServiceException;
 
     Member getMember(long id) throws ServiceException;
 
-    Member searchMemberByName(String name) throws ServiceException;
+    List<Member> searchMemberByName(String name) throws ServiceException;
 
     List<Member> getAllMembers() throws ServiceException;
 

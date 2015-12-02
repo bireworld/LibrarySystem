@@ -176,7 +176,7 @@ public class MemberJpaController implements Serializable {
         }
     }
 
-    public Member findByName(String name) {
+    public List<Member> findByName(String name) {
         EntityManager em = null;
         try {
             name = name.trim();
@@ -190,8 +190,7 @@ public class MemberJpaController implements Serializable {
 
             query.setParameter("fname", "%" + words[0] + "%");
             query.setParameter("lname", "%" + words[words.length - 1] + "%");
-            Member librarian = query.getSingleResult();
-            return librarian;
+            return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

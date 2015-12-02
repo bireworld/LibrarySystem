@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mum.mpp.tay.backendinterface;
 
 import java.util.ArrayList;
@@ -19,7 +14,9 @@ import mum.mpp.tay.entity.Author;
 import mum.mpp.tay.entity.AuthorizationLevel;
 import mum.mpp.tay.entity.Book;
 import mum.mpp.tay.entity.BookCopy;
+import mum.mpp.tay.entity.CheckoutRecord;
 import mum.mpp.tay.entity.Librarian;
+import mum.mpp.tay.entity.Member;
 
 /**
  *
@@ -31,47 +28,26 @@ public class TestClass {
     public static void main(String[] args) throws ServiceException {
         AdminInterface adminI = new AdminIMP();
 
-       /* Admin a = adminI.getAdmin(1);
-        System.out.println(a);
-        a.setFirstName("Amirhossein 2");
-        adminI.editAdmin(a);
-        System.out.println(a);
-
-        Admin searchedAdmin = adminI.searchAdminByName("amirfg bahrafi");
-        System.out.println("Searched admin: " + searchedAdmin);
-        */
-        AdminInterface adminInterface = new AdminIMP();
-        Librarian librarian = new Librarian();
-		librarian.setFirstName("Yong Chao");
-		librarian.setLastName("Zhang");
-		librarian.setAddress(new Address("4th Street","Fairfield",
-				"Iowa", "541522"));
-		librarian.setPhoneNumber("+1-451-542-4568");
-		
-		try {
-			adminInterface.addLibrarian(librarian);
-		} catch (ServiceException e) {
-
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
+        //adminI.addAdmin(createAdminObject());
+        //adminI.addLibrarian(createLibrarianObject());
+        //Book book = adminI.addNewBook(createBookObject());
+        //BookCopy copy= new BookCopy(false, 5, book);
+        //adminI.addBookCopy(copy);
+        //adminI.addMember(createMemberObject());
+        LibrarianInterface libI = new LibrarianIMP();
+        Book b = libI.getBookByName("roomi");
+        System.out.println("Book:" + b);
+        Member member = libI.getMemberById(201);
+        System.out.println("Member: " + member);
+        //libI.checkout(b.getiSBNNumber(), member.getUniqueMemberNumber());
+        List<CheckoutRecord> records = libI.getMemberRecord(member.getUniqueMemberNumber());
+        for (CheckoutRecord rec : records) {
+            System.out.println("Record :" + rec);
+        }
+        libI.checkIn(b.getiSBNNumber(), member.getUniqueMemberNumber());
     }
 
-   /* public static void main2(String[] args) {
-
-        String name = "";
-        String[] words = name.split(" ");
-        System.out.println("size:" + words.length);
-        for (String w : words) {
-            System.out.println("xx" + w);
-        }
-        String firstName = name.substring(0, name.indexOf(" ")).trim();
-        String lastName = name.substring(name.lastIndexOf(" ")).trim();
-        System.out.println(firstName + "--" + lastName);
-
-        if (true) {
-            return;
-        }
+    public static void main2(String[] args) throws Exception {
 
         LibrarianInterface libI = new LibrarianIMP();
         List<Book> books = libI.getAllBooks();
@@ -132,10 +108,9 @@ public class TestClass {
             Logger.getLogger(TestClass.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    */
 
     public static Book createBookObject() {
-        Book b = new Book("53y43", "Hafez poems", null, 7, null);
+        Book b = new Book("123ed32", "Roomi poems", null, 7, null);
 
         Address address = new Address();
         address.setCity("Fairfield");
@@ -151,7 +126,7 @@ public class TestClass {
 
         Author author2 = new Author();
         author2.setAddress(address);
-        author2.setFirstName("Ferdowsi");
+        author2.setFirstName("Roomi");
         author2.setLastName("");
         author2.setPhoneNumber("9313211123");
         author2.setShortBiography("He was a true legend");
@@ -162,10 +137,10 @@ public class TestClass {
 
         b.setAuthors(authors);
 
-        BookCopy copy1 = new BookCopy(false, 5, b);
-        BookCopy copy2 = new BookCopy(false, 6, b);
-        BookCopy copy3 = new BookCopy(false, 7, b);
-        BookCopy copy4 = new BookCopy(false, 8, b);
+        BookCopy copy1 = new BookCopy(false, 1, b);
+        BookCopy copy2 = new BookCopy(false, 2, b);
+        BookCopy copy3 = new BookCopy(false, 3, b);
+        BookCopy copy4 = new BookCopy(false, 4, b);
 
         List<BookCopy> copies = new ArrayList<>();
         copies.add(copy1);
@@ -178,11 +153,27 @@ public class TestClass {
         return b;
     }
 
+    public static Member createMemberObject() {
+
+        Member admin = new Member();
+        admin.setFirstName("Amir");
+        admin.setLastName("Bahrami");
+        Address address = new Address();
+        address.setCity("Fairfield");
+        address.setState("IA");
+        address.setStreet("1000 N 4th");
+        address.setZip("52557");
+        admin.setAddress(address);
+        admin.setPhoneNumber("93132111121");;
+        return admin;
+    }
+
     public static Admin createAdminObject() {
 
         Admin admin = new Admin();
         admin.setFirstName("Amir");
         admin.setLastName("Bahrami");
+        admin.setPassword("123456");
         Address address = new Address();
         address.setCity("Fairfield");
         address.setState("IA");
@@ -199,6 +190,7 @@ public class TestClass {
         Librarian admin = new Librarian();
         admin.setFirstName("Amir");
         admin.setLastName("Bahrami");
+        admin.setPassword("654321");
         Address address = new Address();
         address.setCity("Fairfield");
         address.setState("IA");
