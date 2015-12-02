@@ -41,82 +41,82 @@ public class TestClass {
         System.out.println("Searched admin: " + searchedAdmin);
     }
 
-    public static void main2(String[] args) {
+//    public static void main2(String[] args) {
 
-        String name = "";
-        String[] words = name.split(" ");
-        System.out.println("size:" + words.length);
-        for (String w : words) {
-            System.out.println("xx" + w);
-        }
-        String firstName = name.substring(0, name.indexOf(" ")).trim();
-        String lastName = name.substring(name.lastIndexOf(" ")).trim();
-        System.out.println(firstName + "--" + lastName);
-
-        if (true) {
-            return;
-        }
-
-        LibrarianInterface libI = new LibrarianIMP();
-        List<Book> books = libI.getAllBooks();
-        for (Book b : books) {
-            System.out.println(b);
-        }
-
-        Book bookByName = libI.getBookByName("hafez");
-        System.out.println("Book by name: " + bookByName);
-
-        AdminInterface adminI = new AdminIMP();
-        BookCopy copy = new BookCopy(false, 9, bookByName);
-        try {
-            //BookCopy copy2 = adminI.addBookCopy(copy);
-
-            //System.out.println(copy2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            //Librarian lib = adminI.addLibrarian(createLibrarianObject());
-            //lib.setFirstName("Amirhossein 2");
-            //adminI.editLibrarian(lib);
-            //System.out.println(lib);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        boolean bookAvailable = libI.isBookAvailable("53y43");
-        System.out.println("is book available: " + bookAvailable);
-
-        try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjectPU");
-            // search book
-            BookJpaController bC = new BookJpaController(emf);
-            Book b = bC.findByTitle("hafez");
-            System.out.println(b);
-
-            b.setMaximumCheckoutDurationInDays(41);
-            b.setTitle("Hafez last poem");
-            bC.edit(b);
-
-            //AdminJpaController adminController = new AdminJpaController(emf);
-            //adminController.create(createAdminObject());
-            //
-            //
-            //
-            // create book
-            //BookJpaController bC = new BookJpaController(emf);
-            //bC.create(createBookObject());
-            //
-            //
-            //
-            //
-            //
-        } catch (Exception ex) {
-            Logger.getLogger(TestClass.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+//        String name = "";
+//        String[] words = name.split(" ");
+//        System.out.println("size:" + words.length);
+//        for (String w : words) {
+//            System.out.println("xx" + w);
+//        }
+//        String firstName = name.substring(0, name.indexOf(" ")).trim();
+//        String lastName = name.substring(name.lastIndexOf(" ")).trim();
+//        System.out.println(firstName + "--" + lastName);
+//
+//        if (true) {
+//            return;
+//        }
+//
+//        LibrarianInterface libI = new LibrarianIMP();
+//        List<Book> books = libI.getAllBooks();
+//        for (Book b : books) {
+//            System.out.println(b);
+//        }
+//
+//        Book bookByName = libI.getBookByName("hafez");
+//        System.out.println("Book by name: " + bookByName);
+//
+//        AdminInterface adminI = new AdminIMP();
+//        BookCopy copy = new BookCopy(false, 9, bookByName);
+//        try {
+//            //BookCopy copy2 = adminI.addBookCopy(copy);
+//
+//            //System.out.println(copy2);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            //Librarian lib = adminI.addLibrarian(createLibrarianObject());
+//            //lib.setFirstName("Amirhossein 2");
+//            //adminI.editLibrarian(lib);
+//            //System.out.println(lib);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        boolean bookAvailable = libI.isBookAvailable("53y43");
+//        System.out.println("is book available: " + bookAvailable);
+//
+//        try {
+//            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjectPU");
+//            // search book
+//            BookJpaController bC = new BookJpaController(emf);
+//            Book b = bC.findByTitle("hafez");
+//            System.out.println(b);
+//
+//            b.setMaximumCheckoutDurationInDays(41);
+//            b.setTitle("Hafez last poem");
+//            bC.edit(b);
+//
+//            //AdminJpaController adminController = new AdminJpaController(emf);
+//            //adminController.create(createAdminObject());
+//            //
+//            //
+//            //
+//            // create book
+//            //BookJpaController bC = new BookJpaController(emf);
+//            //bC.create(createBookObject());
+//            //
+//            //
+//            //
+//            //
+//            //
+//        } catch (Exception ex) {
+//            Logger.getLogger(TestClass.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+//
     public static Book createBookObject() {
         Book b = new Book("53y43", "Hafez poems", null, 7, null);
 

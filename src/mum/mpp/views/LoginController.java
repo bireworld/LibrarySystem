@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import mum.mpp.Main;
+import mum.mpp.tay.backendinterface.InterfaceFactory;
 import mum.mpp.tay.backendinterface.LibrarianIMP;
 
 public class LoginController {
@@ -48,8 +49,9 @@ public class LoginController {
 //        primaryStage.setScene(tpScene); 
 		
 		//TODO call Amir login API here
-//        LibrarianIMP librarianIMP = new LibrarianIMP();
-        mainApp.showLibrarianOperationDialog(null);
+//		InterfaceFactory.createAnInterface(username, password)
+        LibrarianIMP librarianIMP = new LibrarianIMP();
+        mainApp.showLibrarianOperationDialog(librarianIMP);
 
 	}
 
