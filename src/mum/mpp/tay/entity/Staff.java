@@ -26,6 +26,7 @@ public abstract class Staff extends Person {
     @Enumerated(EnumType.STRING)
     @Column(name = "staff_role")
     protected AuthorizationLevel role;
+    protected String password;
 
     public long getUniqueStaffId() {
         return uniqueStaffId;
@@ -41,6 +42,14 @@ public abstract class Staff extends Person {
 
     public void setRole(AuthorizationLevel role) {
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

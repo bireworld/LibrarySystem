@@ -7,6 +7,7 @@ package mum.mpp.tay.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,7 +39,7 @@ public class CheckoutRecord implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private BookCopy book;
     @Temporal(TemporalType.TIMESTAMP)
     private Date checkoutDate;
@@ -105,6 +106,11 @@ public class CheckoutRecord implements Serializable {
 
     public void setFine(Fine fine) {
         this.fine = fine;
+    }
+
+    @Override
+    public String toString() {
+        return "CheckoutRecord{" + "id=" + id + ", book=" + book + ", checkoutDate=" + checkoutDate + ", dueDate=" + dueDate + ", checkinDate=" + checkinDate + ", member=" + member + ", fine=" + fine + '}';
     }
 
 }

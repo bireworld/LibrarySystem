@@ -9,6 +9,7 @@ import java.util.List;
 import mum.mpp.tay.entity.Book;
 import mum.mpp.tay.entity.BookCopy;
 import mum.mpp.tay.entity.CheckoutRecord;
+import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Member;
 
 /**
@@ -17,7 +18,9 @@ import mum.mpp.tay.entity.Member;
  */
 public interface LibrarianInterface {
 
-    CheckoutRecord checkout(BookCopy copy, Member member) throws ServiceException;
+    Librarian getLibrarianObject();
+
+    CheckoutRecord checkout(String bookISBN, long memberId) throws ServiceException;
 
     boolean isBookAvailable(String ISBN) throws ServiceException;
 
@@ -29,6 +32,6 @@ public interface LibrarianInterface {
 
     List<CheckoutRecord> getMemberRecord(long memberId) throws ServiceException;
 
-    boolean checkIn(BookCopy copy, Member member) throws ServiceException;
+    boolean checkIn(String bookISBN, long memberId) throws ServiceException;
 
 }

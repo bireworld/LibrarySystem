@@ -124,7 +124,7 @@ public class LibrarianJpaController implements Serializable {
         }
     }
 
-    public Librarian findByName(String name) {
+    public List<Librarian> findByName(String name) {
         EntityManager em = null;
         try {
             name = name.trim();
@@ -138,8 +138,7 @@ public class LibrarianJpaController implements Serializable {
 
             query.setParameter("fname", "%" + words[0] + "%");
             query.setParameter("lname", "%" + words[words.length - 1] + "%");
-            Librarian librarian = query.getSingleResult();
-            return librarian;
+            return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -68,4 +68,9 @@ public class BookCopy implements Serializable {
         this.book = book;
     }
 
+    @Override
+    public String toString() {
+        return "BookCopy{" + "id=" + id + ", borrowed=" + borrowed + ", copyNumber=" + copyNumber + ", book=" + book + '}';
+    }
+
 }

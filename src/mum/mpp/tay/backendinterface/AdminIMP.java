@@ -26,6 +26,12 @@ import mum.mpp.tay.entity.Member;
 public class AdminIMP implements AdminInterface {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjectPU");
+    Admin adminObject;
+
+    @Override
+    public Admin getAdminObject() {
+        return adminObject;
+    }
 
     @Override
     public Book addNewBook(Book book) throws ServiceException {
@@ -138,7 +144,7 @@ public class AdminIMP implements AdminInterface {
     }
 
     @Override
-    public Librarian searchLibrarianByName(String name) throws ServiceException {
+    public List<Librarian> searchLibrarianByName(String name) throws ServiceException {
         try {
             LibrarianJpaController lC = new LibrarianJpaController(emf);
             return lC.findByName(name);
@@ -168,7 +174,7 @@ public class AdminIMP implements AdminInterface {
     }
 
     @Override
-    public Admin searchAdminByName(String name) throws ServiceException {
+    public List<Admin> searchAdminByName(String name) throws ServiceException {
         try {
             AdminJpaController lC = new AdminJpaController(emf);
             return lC.findByName(name);
@@ -198,7 +204,7 @@ public class AdminIMP implements AdminInterface {
     }
 
     @Override
-    public Member searchMemberByName(String name) throws ServiceException {
+    public List<Member> searchMemberByName(String name) throws ServiceException {
         try {
             MemberJpaController lC = new MemberJpaController(emf);
             return lC.findByName(name);
