@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.guigarage.flatterfx.FlatterFX;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -87,7 +89,6 @@ public class EditAdministratorController {
 	@FXML
 	public void initialize() {
 		System.out.println("Edit library initialize");
-
 		initRadioButtons();
 		initTableView();
 	}

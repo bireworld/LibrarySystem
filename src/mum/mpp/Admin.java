@@ -2,6 +2,9 @@ package mum.mpp;
 
 import java.io.IOException;
 
+import com.guigarage.flatterfx.FlatterFX;
+import com.guigarage.responsive.ResponsiveHandler;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -30,6 +33,11 @@ public class Admin extends Application {
 		adminController.setPrimaryStage(primaryStage);
 		adminController.setScene(scene);
 		adminController.setAdminInterface(adminInterface);
+		
+		scene.getStylesheets().add(getClass().getResource("css/JMetroLightTheme.css").toExternalForm());
+		
+		//FlatterFX.style();
+		//ResponsiveHandler.addResponsiveToWindow(primaryStage);
 	}
 	
 	private void loadMenuBar(BorderPane parent) throws IOException {

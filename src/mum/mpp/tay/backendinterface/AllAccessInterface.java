@@ -9,7 +9,7 @@ package mum.mpp.tay.backendinterface;
  *
  * @author 984761
  */
-public interface AllAccessInterface extends LibrarianInterface,AdminInterface {
+public interface AllAccessInterface extends LibrarianInterface, AdminInterface {
 
 
 }
