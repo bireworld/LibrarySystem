@@ -8,27 +8,29 @@
 
 <AnchorPane prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mum.mpp.views.LibrarianOprationDetailController">
    <children>
-      <SplitPane dividerPositions="0.13251670378619154, 0.544543429844098" orientation="VERTICAL" prefHeight="900.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.16146993318485522, 0.5" orientation="VERTICAL" prefHeight="900.0" prefWidth="600.0">
         <items>
             <AnchorPane prefHeight="164.0" prefWidth="598.0">
                <children>
-                  <Text layoutX="33.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="member ID" />
-                  <TextField layoutX="150.0" layoutY="12.0" onAction="#btnLogin_click1" promptText="press enter to stop input" />
-                  <Text layoutX="33.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN number" />
-                  <TextField layoutX="150.0" layoutY="45.0" promptText="press enter to stop input" />
-                  <Button layoutX="487.0" layoutY="45.0" mnemonicParsing="false" text="checkout" />
+                  <Text layoutX="72.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="member ID" />
+                  <TextField fx:id="memberIdField" layoutX="189.0" layoutY="23.0" onAction="#searchMemberInfo" promptText="press enter to stop input" />
+                  <Text layoutX="72.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN number" />
+                  <TextField fx:id="ISBNField" layoutX="189.0" layoutY="56.0" promptText="press enter to stop input" />
+                  <Button layoutX="295.0" layoutY="96.0" mnemonicParsing="false" text="checkout" />
+                  <Text fx:id="memberErrMsg" fill="#d00b0b" layoutX="406.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                  <Text fx:id="ISBNErrMsg" layoutX="417.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="359.0" prefWidth="598.0">
                <children>
-                  <SplitPane dividerPositions="0.29797979797979796" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.3036912751677852" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <TableView fx:id="personTable" layoutX="-12.0" layoutY="49.0" prefHeight="298.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="checkoutBooksTable" layoutX="-12.0" layoutY="49.0" prefHeight="298.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
-                                  <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
+                                  <TableColumn fx:id="firstColumn" prefWidth="75.0" text="First Name" />
+                                  <TableColumn fx:id="lastColumn" prefWidth="75.0" text="Last Name" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -36,7 +38,7 @@
                               </TableView>
                            </children>
                         </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="317.0" prefWidth="411.0">
                            <children>
                               <Label layoutX="104.0" layoutY="51.0" text="Person Details" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                               <GridPane layoutX="43.0" layoutY="104.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
@@ -73,9 +75,9 @@
                   </SplitPane>
                </children>
             </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="392.0" prefWidth="598.0">
                <children>
-                  <SplitPane dividerPositions="0.29797979797979796" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.662751677852349" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
@@ -84,13 +86,13 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
-                                    <TableColumn fx:id="firstNameColumn1" prefWidth="75.0" text="First Name" />
+                                    <TableColumn prefWidth="75.0" text="First Name" />
                                     <TableColumn fx:id="lastNameColumn1" prefWidth="75.0" text="Last Name" />
                                  </columns>
                               </TableView>
                            </children>
                         </AnchorPane>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="443.0" prefWidth="361.0">
                            <children>
                               <Label layoutX="104.0" layoutY="51.0" text="Person Details" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                               <GridPane layoutX="43.0" layoutY="104.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">

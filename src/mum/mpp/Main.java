@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mum.mpp.tay.backendinterface.LibrarianIMP;
+import mum.mpp.tay.backendinterface.LibrarianInterface;
+import mum.mpp.views.LibrarianOprationDetailController;
 import mum.mpp.views.LoginController;
 
 
@@ -39,14 +42,19 @@ public class Main extends Application {
 		launch(args);
 	}
 
-	public void showLibrarianOperationDialog() {
+	public void showLibrarianOperationDialog(LibrarianInterface librarianIMP) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("./views/LibrarianOprationDetail.fxml"));
+            
             Parent page = (Parent)loader.load();
             Scene scene = new Scene(page);
 
+            //set user
+            LibrarianOprationDetailController controller = loader.getController();
+            controller.setUser(librarianIMP);
+            
             this.primaryStage.setScene(scene);
 
         } catch (IOException e) {

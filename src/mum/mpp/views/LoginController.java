@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import mum.mpp.Main;
+import mum.mpp.tay.backendinterface.LibrarianIMP;
 
 public class LoginController {
 	@FXML
@@ -47,8 +48,8 @@ public class LoginController {
 //        primaryStage.setScene(tpScene); 
 		
 		//TODO call Amir login API here
-        
-        mainApp.showLibrarianOperationDialog();
+//        LibrarianIMP librarianIMP = new LibrarianIMP();
+        mainApp.showLibrarianOperationDialog(null);
 
 	}
 
