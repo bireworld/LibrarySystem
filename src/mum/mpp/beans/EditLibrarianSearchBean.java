@@ -19,7 +19,7 @@ public class EditLibrarianSearchBean {
 	
 	public EditLibrarianSearchBean(long staffId, String firstName,
 			String lastName, String phone, String street, String city,
-			String state, String zip) {
+			String state, String zip, AuthorizationLevel authLevel) {
 		this.staffId = new SimpleLongProperty(staffId);
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
@@ -28,6 +28,7 @@ public class EditLibrarianSearchBean {
 		this.city = new SimpleStringProperty(city);
 		this.state = new SimpleStringProperty(state);
 		this.zip = new SimpleStringProperty(zip);
+		this.authLevel = authLevel;
 	}
 	public long getStaffId() {
 		return staffId.get();
@@ -94,6 +95,7 @@ public class EditLibrarianSearchBean {
 		temp.setRole(this.getAuthLevel());
 		temp.setAddress(new Address(this.getStreet(), this.getCity(), 
 				this.getState(), this.getZip()));
+		temp.setRole(this.getAuthLevel());
 		return temp;
 	}
 }

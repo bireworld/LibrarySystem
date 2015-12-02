@@ -205,7 +205,7 @@ public class EditLibrarianController {
 		for (Staff staff : searchResultList) {
 			searchResult.add(new EditLibrarianSearchBean(staff.getUniqueStaffId(), staff.getFirstName(),
 					staff.getLastName(), staff.getPhoneNumber(), staff.getAddress().getStreet(),
-					staff.getAddress().getCity(), staff.getAddress().getState(), staff.getAddress().getZip()));
+					staff.getAddress().getCity(), staff.getAddress().getState(), staff.getAddress().getZip(), staff.getRole()));
 			// System.out.println(staff.toString());
 		}
 
@@ -236,7 +236,7 @@ public class EditLibrarianController {
 			StringBuilder sbContent = new StringBuilder();
 			Set<Long> keys = successEdits.keySet();
 			for(Long key : keys) {
-				sbContent.append(key + " " + successEdits.get(key));
+				sbContent.append(key + ", " + successEdits.get(key));
 				sbContent.append("\n");
 			}
 			DialogUtil.showDialog("Edit Success!", "Number of edits made : " + editCount, sbContent.toString(),
@@ -260,12 +260,11 @@ public class EditLibrarianController {
 			}
 		} else if (searchBy == searchBy.ByName) {
 			try {
-				Librarian tempList = adminInterface.searchLibrarianByName(searchString);
+				List<Librarian> tempList = adminInterface.searchLibrarianByName(searchString);
 
-				// if(tempList!=null)
-				// tempList.forEach(l->list.add(l));
+				if(tempList!=null)
+					tempList.forEach(l->list.add(l));
 			} catch (ServiceException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

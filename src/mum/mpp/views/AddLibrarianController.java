@@ -12,6 +12,7 @@ import mum.mpp.tay.backendinterface.ServiceException;
 import mum.mpp.tay.entity.Address;
 import mum.mpp.tay.entity.AuthorizationLevel;
 import mum.mpp.tay.entity.Librarian;
+import mum.mpp.utils.AuthUtils;
 import mum.mpp.utils.DialogUtil;
 
 public class AddLibrarianController {
@@ -44,7 +45,7 @@ public class AddLibrarianController {
 	
 	private AdminInterface adminInterface;
 	
-	private ObservableList<String> authLevelStrings = FXCollections.observableArrayList("ADMIN", "LIBRARIAN", "BOTH");
+	private ObservableList<String> authLevelStrings = FXCollections.observableArrayList("ADMIN", "LIBRARIAN", "FULLACCESS");
 	
 	@FXML
 	public void initialize() {
@@ -66,7 +67,8 @@ public class AddLibrarianController {
 		librarian.setAddress(new Address(txtfStreet.getText(),txtfCity.getText(),
 				txtfState.getText(), txtfZip.getText()));
 		librarian.setPhoneNumber(txtfPhone.getText());
-		librarian.setRole(AuthorizationLevel.LIBRARIAN);
+		AuthorizationLevel authLevel = AuthUtils.getAuthLevelFromString((String)cmbfAuthLevel.getValue());
+		librarian.setRole(authLevel);
 		
 		try {
 			Librarian l = adminInterface.addLibrarian(librarian);

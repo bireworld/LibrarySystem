@@ -1,7 +1,13 @@
 package mum.mpp.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
+import mum.mpp.tay.entity.Address;
+import mum.mpp.tay.entity.CheckoutRecord;
+import mum.mpp.tay.entity.Member;
 
 public class EditMemberSearchBean {
 	private SimpleLongProperty memberId;
@@ -12,10 +18,11 @@ public class EditMemberSearchBean {
 	private SimpleStringProperty city;
 	private SimpleStringProperty state;
 	private SimpleStringProperty zip;
+	private List<CheckoutRecord> checkoutRecList;
 	
 	public EditMemberSearchBean(long memberId, String firstName,
 			String lastName, String phone, String street, String city,
-			String state, String zip) {
+			String state, String zip, List<CheckoutRecord> checkoutRecList) {
 		this.memberId = new SimpleLongProperty(memberId);
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
@@ -24,6 +31,7 @@ public class EditMemberSearchBean {
 		this.city = new SimpleStringProperty(city);
 		this.state = new SimpleStringProperty(state);
 		this.zip = new SimpleStringProperty(zip);
+		this.checkoutRecList = checkoutRecList;
 	}
 	public long getMemberId() {
 		return memberId.get();
@@ -74,6 +82,25 @@ public class EditMemberSearchBean {
 	public void setZip(String zip) {
 		this.zip = new SimpleStringProperty(zip);
 	}
+	
+	public List<CheckoutRecord> getCheckoutRecList() {
+		return checkoutRecList;
+	}
+	public void setCheckoutRecList(List<CheckoutRecord> checkoutRecList) {
+		this.checkoutRecList = checkoutRecList;
+	}
+	public Member getMember() {
+		Member temp = new Member();
+		temp.setUniqueMemberNumber(this.getMemberId());
+		temp.setFirstName(this.getFirstName());
+		temp.setLastName(this.getLastName());
+		temp.setPhoneNumber(this.getPhone());
+		temp.setAddress(new Address(this.getStreet(), this.getCity(), 
+				this.getState(), this.getZip()));
+		temp.setRecords(this.getCheckoutRecList());
+		return temp;
+	}
+	
 	@Override
 	public String toString() {
 		return "EditMemberSearchBean [memberId=" + memberId + ", firstName=" + firstName + ", lastName=" + lastName

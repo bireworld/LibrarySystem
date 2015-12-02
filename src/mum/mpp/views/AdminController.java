@@ -62,13 +62,11 @@ public class AdminController {
 		
 		TreeItem<String> adLib = new TreeItem<>("New Librarian");
 		TreeItem<String> editLib = new TreeItem<>("Edit Librarian");
-		TreeItem<String> delLib = new TreeItem<>("Delete Librarian");
-		lib.getChildren().addAll(adLib, editLib, delLib);
+		lib.getChildren().addAll(adLib, editLib);
 		
 		TreeItem<String> adMem = new TreeItem<>("New Member");
 		TreeItem<String> editMem = new TreeItem<>("Edit Member");
-		TreeItem<String> delMem = new TreeItem<>("Delete Mem");
-		mem.getChildren().addAll(adMem, editMem, delMem);
+		mem.getChildren().addAll(adMem, editMem);
 		
 		treeMenu.setRoot(root);
 		
