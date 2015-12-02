@@ -6,11 +6,10 @@
 package mum.mpp.tay.backendinterface;
 
 import java.util.List;
-import mum.mpp.tay.entity.Admin;
 import mum.mpp.tay.entity.Book;
 import mum.mpp.tay.entity.BookCopy;
-import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Member;
+import mum.mpp.tay.entity.Staff;
 
 /**
  *
@@ -18,37 +17,27 @@ import mum.mpp.tay.entity.Member;
  */
 public interface AdminInterface {
 
-    Admin getAdminObject();
-    
+    Staff getThisStaffObject();
+
     Book addNewBook(Book book) throws ServiceException;
 
     Book editBook(Book book) throws ServiceException;
 
     BookCopy addBookCopy(BookCopy copy) throws ServiceException;
 
-    Librarian addLibrarian(Librarian librarian) throws ServiceException;
-
-    Librarian editLibrarian(Librarian librarian) throws ServiceException;
-
-    Admin addAdmin(Admin admin) throws ServiceException;
-
-    Admin editAdmin(Admin admin) throws ServiceException;
-
     Member addMember(Member member) throws ServiceException;
 
     Member editMember(Member member) throws ServiceException;
 
-    Librarian getLibrarian(long id) throws ServiceException;
+    Staff addStaff(Staff staff) throws ServiceException;
 
-    List<Librarian> searchLibrarianByName(String name) throws ServiceException;
+    Staff editStaff(Staff staff) throws ServiceException;
 
-    List<Librarian> getAllLibrarian() throws ServiceException;
+    Staff getStaff(long id) throws ServiceException;
 
-    Admin getAdmin(long id) throws ServiceException;
+    List<Staff> searchStaffByName(String name) throws ServiceException;
 
-    List<Admin> searchAdminByName(String name) throws ServiceException;
-
-    List<Admin> getAllAdmins() throws ServiceException;
+    List<Staff> getAllStaff() throws ServiceException;
 
     Member getMember(long id) throws ServiceException;
 

@@ -49,7 +49,12 @@ public class LoginController {
 //        primaryStage.setScene(tpScene); 
 		
 		//TODO call Amir login API here
-//		InterfaceFactory.createAnInterface(username, password)
+//		Object user = InterfaceFactory.createAnInterface(username, password);
+//		user 
+//		if(is a libIn){
+//	        LibrarianInterface librarianIMP = (LibrarianInterface)user;
+//	        mainApp.showLibrarianOperationDialog(librarianIMP);
+//		}
         LibrarianIMP librarianIMP = new LibrarianIMP();
         mainApp.showLibrarianOperationDialog(librarianIMP);
 

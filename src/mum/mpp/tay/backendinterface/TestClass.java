@@ -9,14 +9,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import mum.mpp.tay.controller.BookJpaController;
 import mum.mpp.tay.entity.Address;
-import mum.mpp.tay.entity.Admin;
 import mum.mpp.tay.entity.Author;
 import mum.mpp.tay.entity.AuthorizationLevel;
 import mum.mpp.tay.entity.Book;
 import mum.mpp.tay.entity.BookCopy;
 import mum.mpp.tay.entity.CheckoutRecord;
-import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Member;
+import mum.mpp.tay.entity.Staff;
 
 /**
  *
@@ -26,20 +25,30 @@ public class TestClass {
 
     // test admin imp
     public static void main(String[] args) throws ServiceException {
-        AdminInterface adminI = new AdminIMP();
 
-        //adminI.addAdmin(createAdminObject());
-        //adminI.addLibrarian(createLibrarianObject());
-        //Book book = adminI.addNewBook(createBookObject());
-        //BookCopy copy= new BookCopy(false, 5, book);
-        //adminI.addBookCopy(copy);
-        //adminI.addMember(createMemberObject());
-        LibrarianInterface libI = new LibrarianIMP();
+        AllAccessIMP allAcc = (AllAccessIMP) InterfaceFactory.createAnInterface("101", "654321");
+
+        System.out.println(allAcc.getThisStaffObject());
+        if (true) {
+            return;
+        }
+        AdminInterface adminI = (AdminInterface) InterfaceFactory.createAnInterface("1", "123456");
+
+        adminI.addStaff(createAllAccessObject());
+
+        Staff admin = adminI.addStaff(createAdminObject());
+        System.out.println("Admin: " + admin);
+        Staff librarian = adminI.addStaff(createLibrarianObject());
+        Book book = adminI.addNewBook(createBookObject());
+        BookCopy copy = new BookCopy(false, 5, book);
+        adminI.addBookCopy(copy);
+        Member member2 = adminI.addMember(createMemberObject());
+        LibrarianInterface libI = (LibrarianInterface) InterfaceFactory.createAnInterface("" + librarian.getUniqueStaffId(), librarian.getPassword());
         Book b = libI.getBookByName("roomi");
         System.out.println("Book:" + b);
-        Member member = libI.getMemberById(201);
+        Member member = libI.getMemberById(member2.getUniqueMemberNumber());
         System.out.println("Member: " + member);
-        //libI.checkout(b.getiSBNNumber(), member.getUniqueMemberNumber());
+        libI.checkout(b.getiSBNNumber(), member.getUniqueMemberNumber());
         List<CheckoutRecord> records = libI.getMemberRecord(member.getUniqueMemberNumber());
         for (CheckoutRecord rec : records) {
             System.out.println("Record :" + rec);
@@ -47,68 +56,69 @@ public class TestClass {
         libI.checkIn(b.getiSBNNumber(), member.getUniqueMemberNumber());
     }
 
-    public static void main2(String[] args) throws Exception {
+    /*
+     public static void main2(String[] args) throws Exception {
 
-        LibrarianInterface libI = new LibrarianIMP();
-        List<Book> books = libI.getAllBooks();
-        for (Book b : books) {
-            System.out.println(b);
-        }
+     LibrarianInterface libI = new LibrarianIMP();
+     List<Book> books = libI.getAllBooks();
+     for (Book b : books) {
+     System.out.println(b);
+     }
 
-        Book bookByName = libI.getBookByName("hafez");
-        System.out.println("Book by name: " + bookByName);
+     Book bookByName = libI.getBookByName("hafez");
+     System.out.println("Book by name: " + bookByName);
 
-        AdminInterface adminI = new AdminIMP();
-        BookCopy copy = new BookCopy(false, 9, bookByName);
-        try {
-            //BookCopy copy2 = adminI.addBookCopy(copy);
+     AdminInterface adminI = new AdminIMP();
+     BookCopy copy = new BookCopy(false, 9, bookByName);
+     try {
+     //BookCopy copy2 = adminI.addBookCopy(copy);
 
-            //System.out.println(copy2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+     //System.out.println(copy2);
+     } catch (Exception e) {
+     e.printStackTrace();
+     }
 
-        try {
-            //Librarian lib = adminI.addLibrarian(createLibrarianObject());
-            //lib.setFirstName("Amirhossein 2");
-            //adminI.editLibrarian(lib);
-            //System.out.println(lib);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+     try {
+     //Librarian lib = adminI.addLibrarian(createLibrarianObject());
+     //lib.setFirstName("Amirhossein 2");
+     //adminI.editLibrarian(lib);
+     //System.out.println(lib);
+     } catch (Exception e) {
+     e.printStackTrace();
+     }
 
-        boolean bookAvailable = libI.isBookAvailable("53y43");
-        System.out.println("is book available: " + bookAvailable);
+     boolean bookAvailable = libI.isBookAvailable("53y43");
+     System.out.println("is book available: " + bookAvailable);
 
-        try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjectPU");
-            // search book
-            BookJpaController bC = new BookJpaController(emf);
-            Book b = bC.findByTitle("hafez");
-            System.out.println(b);
+     try {
+     EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjectPU");
+     // search book
+     BookJpaController bC = new BookJpaController(emf);
+     Book b = bC.findByTitle("hafez");
+     System.out.println(b);
 
-            b.setMaximumCheckoutDurationInDays(41);
-            b.setTitle("Hafez last poem");
-            bC.edit(b);
+     b.setMaximumCheckoutDurationInDays(41);
+     b.setTitle("Hafez last poem");
+     bC.edit(b);
 
-            //AdminJpaController adminController = new AdminJpaController(emf);
-            //adminController.create(createAdminObject());
-            //
-            //
-            //
-            // create book
-            //BookJpaController bC = new BookJpaController(emf);
-            //bC.create(createBookObject());
-            //
-            //
-            //
-            //
-            //
-        } catch (Exception ex) {
-            Logger.getLogger(TestClass.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+     //AdminJpaController adminController = new AdminJpaController(emf);
+     //adminController.create(createAdminObject());
+     //
+     //
+     //
+     // create book
+     //BookJpaController bC = new BookJpaController(emf);
+     //bC.create(createBookObject());
+     //
+     //
+     //
+     //
+     //
+     } catch (Exception ex) {
+     Logger.getLogger(TestClass.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     }
+     */
     public static Book createBookObject() {
         Book b = new Book("123ed32", "Roomi poems", null, 7, null);
 
@@ -168,9 +178,9 @@ public class TestClass {
         return admin;
     }
 
-    public static Admin createAdminObject() {
+    public static Staff createAdminObject() {
 
-        Admin admin = new Admin();
+        Staff admin = new Staff();
         admin.setFirstName("Amir");
         admin.setLastName("Bahrami");
         admin.setPassword("123456");
@@ -185,9 +195,9 @@ public class TestClass {
         return admin;
     }
 
-    public static Librarian createLibrarianObject() {
+    public static Staff createLibrarianObject() {
 
-        Librarian admin = new Librarian();
+        Staff admin = new Staff();
         admin.setFirstName("Amir");
         admin.setLastName("Bahrami");
         admin.setPassword("654321");
@@ -201,4 +211,25 @@ public class TestClass {
         admin.setRole(AuthorizationLevel.LIBRARIAN);
         return admin;
     }
+<<<<<<< HEAD
+
+    public static Staff createAllAccessObject() {
+
+        Staff admin = new Staff();
+        admin.setFirstName("Maharishi");
+        admin.setLastName("Bahrami");
+        admin.setPassword("654321");
+        Address address = new Address();
+        address.setCity("Fairfield");
+        address.setState("IA");
+        address.setStreet("1000 N 4th");
+        address.setZip("52557");
+        admin.setAddress(address);
+        admin.setPhoneNumber("93132111121");
+        admin.setRole(AuthorizationLevel.FULLACCESS);
+        return admin;
+    }
 }
+=======
+}
+>>>>>>> 42a40255e7d214921a966af00d8e89aebf4ce0ca

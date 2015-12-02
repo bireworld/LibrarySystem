@@ -11,5 +11,4 @@ package mum.mpp.tay.backendinterface;
  */
 public interface AllAccessInterface extends LibrarianInterface, AdminInterface {
 
-
 }
