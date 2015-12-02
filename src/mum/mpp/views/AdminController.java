@@ -15,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import mum.mpp.ActionType;
+import mum.mpp.tay.backendinterface.AdminIMP;
+import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.utils.MapStringToView;
 
 public class AdminController {
@@ -26,6 +28,8 @@ public class AdminController {
 	
 	private Stage primaryStage;
 	private Scene scene;
+	
+	private AdminInterface adminInterface;
 	
 	private final Node rootIcon = new ImageView(
 	        new Image(getClass().getResourceAsStream("/mum/mpp/images/folder.png"))
@@ -95,8 +99,31 @@ public class AdminController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(filePath));
 		
 		BorderPane root = (BorderPane)loader.load();
-		
 		contentArea.setCenter(root);
+		
+		delegateAdminInterface(loader, actionType);
+	}
+	
+	private void delegateAdminInterface(FXMLLoader loader, ActionType actionType) {
+		if(actionType == ActionType.ADD_ADMIN) {
+			AddAdministratorController c = (AddAdministratorController)loader.getController();
+			c.setAdminInterface(adminInterface);
+		} else if(actionType == ActionType.EDIT_ADMIN) {
+			EditAdministratorController c = (EditAdministratorController)loader.getController();
+			c.setAdminInterface(adminInterface);
+		} else if(actionType == ActionType.ADD_LIBRARIAN) {
+			AddLibrarianController c = (AddLibrarianController)loader.getController();
+			c.setAdminInterface(adminInterface);
+		} else if(actionType == ActionType.EDIT_LIBRARIAN) {
+			EditLibrarianController c = (EditLibrarianController)loader.getController();
+			c.setAdminInterface(adminInterface);
+		} else if(actionType == ActionType.ADD_MEMBER) {
+			AddMemberController c = (AddMemberController)loader.getController();
+			c.setAdminInterface(adminInterface);
+		} else if(actionType == ActionType.EDIT_MEMBER) {
+			EditMemberController c = (EditMemberController)loader.getController();
+			c.setAdminInterface(adminInterface);
+		}
 	}
 
 	public Stage getPrimaryStage() {
@@ -113,5 +140,13 @@ public class AdminController {
 
 	public void setScene(Scene scene) {
 		this.scene = scene;
+	}
+
+	public AdminInterface getAdminInterface() {
+		return adminInterface;
+	}
+
+	public void setAdminInterface(AdminInterface adminInterface) {
+		this.adminInterface = adminInterface;
 	}
 }

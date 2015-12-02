@@ -31,7 +31,7 @@ public class TestClass {
     public static void main(String[] args) throws ServiceException {
         AdminInterface adminI = new AdminIMP();
 
-        Admin a = adminI.getAdmin(1);
+       /* Admin a = adminI.getAdmin(1);
         System.out.println(a);
         a.setFirstName("Amirhossein 2");
         adminI.editAdmin(a);
@@ -39,9 +39,25 @@ public class TestClass {
 
         Admin searchedAdmin = adminI.searchAdminByName("amirfg bahrafi");
         System.out.println("Searched admin: " + searchedAdmin);
+        */
+        AdminInterface adminInterface = new AdminIMP();
+        Librarian librarian = new Librarian();
+		librarian.setFirstName("Yong Chao");
+		librarian.setLastName("Zhang");
+		librarian.setAddress(new Address("4th Street","Fairfield",
+				"Iowa", "541522"));
+		librarian.setPhoneNumber("+1-451-542-4568");
+		
+		try {
+			adminInterface.addLibrarian(librarian);
+		} catch (ServiceException e) {
+
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
     }
 
-    public static void main2(String[] args) {
+   /* public static void main2(String[] args) {
 
         String name = "";
         String[] words = name.split(" ");
@@ -116,6 +132,7 @@ public class TestClass {
             Logger.getLogger(TestClass.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    */
 
     public static Book createBookObject() {
         Book b = new Book("53y43", "Hafez poems", null, 7, null);

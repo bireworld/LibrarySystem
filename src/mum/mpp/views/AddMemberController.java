@@ -71,4 +71,12 @@ public class AddMemberController {
 			e.printStackTrace();
 		}
 	}
+
+	public AdminInterface getAdminInterface() {
+		return adminInterface;
+	}
+
+	public void setAdminInterface(AdminInterface adminInterface) {
+		this.adminInterface = adminInterface;
+	}
 }

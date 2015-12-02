@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mum.mpp.views.EditAdministrator">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mum.mpp.views.EditAdministratorController">
    <left>
       <GridPane prefHeight="584.0" prefWidth="776.0" BorderPane.alignment="CENTER">
         <columnConstraints>

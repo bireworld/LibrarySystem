@@ -26,7 +26,7 @@ import mum.mpp.tay.entity.Address;
 import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Staff;
 
-public class EditAdministrator {
+public class EditAdministratorController {
 	@FXML
 	private TextField txtfSearchBox;
 	
@@ -253,11 +253,11 @@ public class EditAdministrator {
 		return list;
 	}
 
-	private AdminInterface getAdminInterface() {
+	public AdminInterface getAdminInterface() {
 		return adminInterface;
 	}
 
-	private void setAdminInterface(AdminInterface adminInterface) {
+	public void setAdminInterface(AdminInterface adminInterface) {
 		this.adminInterface = adminInterface;
 	}
 }

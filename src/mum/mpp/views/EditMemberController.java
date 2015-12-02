@@ -252,11 +252,11 @@ public class EditMemberController {
 		return list;
 	}
 
-	private AdminInterface getAdminInterface() {
+	public AdminInterface getAdminInterface() {
 		return adminInterface;
 	}
 
-	private void setAdminInterface(AdminInterface adminInterface) {
+	public void setAdminInterface(AdminInterface adminInterface) {
 		this.adminInterface = adminInterface;
 	}
 }
