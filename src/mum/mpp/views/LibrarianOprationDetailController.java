@@ -12,8 +12,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontBuilder;
 import javafx.scene.text.Text;
 import mum.mpp.tay.backendinterface.LibrarianInterface;
+import mum.mpp.tay.backendinterface.ServiceException;
 import mum.mpp.tay.entity.Book;
 import mum.mpp.tay.entity.BookCopy;
 import mum.mpp.tay.entity.CheckoutRecord;
@@ -58,14 +62,13 @@ public class LibrarianOprationDetailController {
     @FXML
     private TextField memberIdField;
     @FXML
-    private TextField ISBNField;
+    private TextField iSBNField;
     
     @FXML
     private Text memberErrMsg;
     @FXML
     private Text ISBNErrMsg;
     
-	@FXML
 	public void searchMemberInfo() {
 		
 		initChkoutRecordEnv();
@@ -73,11 +76,11 @@ public class LibrarianOprationDetailController {
 		//validate
 		String memberId = memberIdField.getText();
 		if(null == memberId || "".equals(memberId)){
-			memberErrMsg.setText("empty imput");
+			memberErrMsg.setText("Empty imput");
 			return;
 		}else{
 			try{
-				System.out.println("btnLogin_click2 "+memberId);
+
 				Long id = Long.valueOf(memberId);
 				
 				//TODO remove mock
@@ -85,11 +88,14 @@ public class LibrarianOprationDetailController {
 				
 				if(null == libMember){
 					memberErrMsg.setText("Can not find by that ID");
+					memberErrMsg.setFill(Color.RED);
 					return;
 				}else{
 //					System.out.println("btnLogin_click2");
 //					checkoutBooks.add(new BookVo("1", "1", 1));
 //					checkoutBooks.add(new BookVo("2", "2", 2));
+					memberErrMsg.setText("Valid");
+					memberErrMsg.setFill(Color.GREEN);
 					
 					List<CheckoutRecord> memberRecord = user.getMemberRecord(id);
 					for(CheckoutRecord checkoutRecord: memberRecord){
@@ -97,20 +103,26 @@ public class LibrarianOprationDetailController {
 						BookVo bookVo = new BookVo(book.getiSBNNumber(),
 								book.getTitle(), book.getMaximumCheckoutDurationInDays(), checkoutRecord.getBook().getCopyNumber(),
 								checkoutRecord.getCheckoutDate(), checkoutRecord.getDueDate(), checkoutRecord.getCheckinDate());
-						System.out.println("btnLogin_click2 "+2);
+						
 						checkoutBooks.add(bookVo);
-						System.out.println("btnLogin_click2 "+3);
+						
 					}
 
 			        // Add observable list data to the table
 					checkoutBooksTable.setItems(checkoutBooks);
-
+					
 			        firstColumn.setCellValueFactory(cellData -> cellData.getValue().getiSBNNumber());
 			        secondColumn.setCellValueFactory(cellData -> cellData.getValue().getCopyNumber());
 			        thirdColumn.setCellValueFactory(cellData -> cellData.getValue().getDueDate());
 				}
-			}catch(Exception e){
+			} catch (ServiceException e) {
+				memberErrMsg.setText(e.getMessage());
+				memberErrMsg.setFill(Color.RED);
+				return;
+			} catch(Exception e){
+				e.printStackTrace();
 				memberErrMsg.setText("Pls input a number!");
+				memberErrMsg.setFill(Color.RED);
 				return;
 			}
 			
@@ -122,10 +134,50 @@ public class LibrarianOprationDetailController {
 	private void initChkoutRecordEnv() {
 		//clear err msg
 		memberErrMsg.setText("");
-
+		memberErrMsg.setFill(Color.BLACK);
 		//clear Data
 		checkoutBooks.clear();
 	}
+	
+	private void bindISBNFieldEvent(Boolean newValue) {
+		if(!newValue){
+			initISBNEnv();
+			
+			//validate
+			String iSBNNo = iSBNField.getText();
+			if(null == iSBNNo || "".equals(iSBNNo)){
+				ISBNErrMsg.setText("Empty imput");
+				return;
+			} else{
+				try {
+					boolean bookAvailable = user.isBookAvailable(iSBNNo);
+					if(bookAvailable){
+						
+						ISBNErrMsg.setText("Available");
+						ISBNErrMsg.setFill(Color.GREEN);
+					}else{
+						ISBNErrMsg.setText("Not available");
+						ISBNErrMsg.setFill(Color.YELLOW);
+					}
+					return;
+				} catch (ServiceException e) {
+					ISBNErrMsg.setText(e.getMessage());
+					return;
+				}
+			}
+		}
+
+//		return null;
+	}
+	
+	private void initISBNEnv() {
+		//clear err msg
+		ISBNErrMsg.setText("");
+		ISBNErrMsg.setFill(Color.BLACK);
+//		//clear Data
+//		checkoutBooks.clear();
+
+	}	
 	
     private void showChkOutRecordsDetails(BookVo book) {
         if (book != null) {
@@ -150,12 +202,15 @@ public class LibrarianOprationDetailController {
         	checkinDate.setText("");
         }
     }
-	
+    
+
     @FXML
     private void initialize() {
         // Listen for selection changes and show the person details when changed.
     	checkoutBooksTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showChkOutRecordsDetails(newValue));
+    	
+    	//onblur for member id
         memberIdField.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
@@ -171,7 +226,11 @@ public class LibrarianOprationDetailController {
                 }
             }
         });
+        
+        iSBNField.focusedProperty().addListener((observable, oldValue, newValue) -> bindISBNFieldEvent(newValue));
     }
+
+
 
 	@FXML
 	public void btnLogin_click() {
