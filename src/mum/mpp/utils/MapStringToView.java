@@ -18,8 +18,12 @@ public class MapStringToView {
 	
 	static Map<String,ActionType> actionTypeMap = new HashMap<>();
 	static {
+		actionTypeMap.put("New Administrator", ActionType.ADD_ADMIN);
+		actionTypeMap.put("Edit Administrator", ActionType.EDIT_ADMIN);
 		actionTypeMap.put("New Librarian", ActionType.ADD_LIBRARIAN);
 		actionTypeMap.put("Edit Librarian", ActionType.EDIT_LIBRARIAN);
+		actionTypeMap.put("New Member", ActionType.ADD_MEMBER);
+		actionTypeMap.put("Edit Member", ActionType.EDIT_MEMBER);
 	}
 	
 	public static String mapView(String menuItem) {

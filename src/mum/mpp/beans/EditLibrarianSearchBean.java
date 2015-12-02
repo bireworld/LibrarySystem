@@ -2,6 +2,9 @@ package mum.mpp.beans;
 
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
+import mum.mpp.tay.entity.Address;
+import mum.mpp.tay.entity.AuthorizationLevel;
+import mum.mpp.tay.entity.Librarian;
 
 public class EditLibrarianSearchBean {
 	private SimpleLongProperty staffId;
@@ -12,10 +15,11 @@ public class EditLibrarianSearchBean {
 	private SimpleStringProperty city;
 	private SimpleStringProperty state;
 	private SimpleStringProperty zip;
+	private AuthorizationLevel authLevel;
 	
 	public EditLibrarianSearchBean(long staffId, String firstName,
 			String lastName, String phone, String street, String city,
-			String state, String zip) {
+			String state, String zip, AuthorizationLevel authLevel) {
 		this.staffId = new SimpleLongProperty(staffId);
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
@@ -24,6 +28,7 @@ public class EditLibrarianSearchBean {
 		this.city = new SimpleStringProperty(city);
 		this.state = new SimpleStringProperty(state);
 		this.zip = new SimpleStringProperty(zip);
+		this.authLevel = authLevel;
 	}
 	public long getStaffId() {
 		return staffId.get();
@@ -73,5 +78,24 @@ public class EditLibrarianSearchBean {
 	
 	public void setZip(String zip) {
 		this.zip = new SimpleStringProperty(zip);
+	}
+	
+	public AuthorizationLevel getAuthLevel() {
+		return authLevel;
+	}
+	public void setAuthLevel(AuthorizationLevel authLevel) {
+		this.authLevel = authLevel;
+	}
+	public Librarian getLibrarian() {
+		Librarian temp = new Librarian();
+		temp.setUniqueStaffId(this.getStaffId());
+		temp.setFirstName(this.getFirstName());
+		temp.setLastName(this.getLastName());
+		temp.setPhoneNumber(this.getPhone());
+		temp.setRole(this.getAuthLevel());
+		temp.setAddress(new Address(this.getStreet(), this.getCity(), 
+				this.getState(), this.getZip()));
+		temp.setRole(this.getAuthLevel());
+		return temp;
 	}
 }

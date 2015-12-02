@@ -2,6 +2,10 @@ package mum.mpp.beans;
 
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
+import mum.mpp.tay.entity.Address;
+import mum.mpp.tay.entity.Admin;
+import mum.mpp.tay.entity.Author;
+import mum.mpp.tay.entity.AuthorizationLevel;
 
 public class EditAdminSearchBean {
 	private SimpleLongProperty adminId;
@@ -12,10 +16,11 @@ public class EditAdminSearchBean {
 	private SimpleStringProperty city;
 	private SimpleStringProperty state;
 	private SimpleStringProperty zip;
+	private AuthorizationLevel authLevel;
 	
 	public EditAdminSearchBean(long adminId, String firstName,
 			String lastName, String phone, String street, String city,
-			String state, String zip) {
+			String state, String zip, AuthorizationLevel authLevel) {
 		this.adminId = new SimpleLongProperty(adminId);
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
@@ -24,6 +29,7 @@ public class EditAdminSearchBean {
 		this.city = new SimpleStringProperty(city);
 		this.state = new SimpleStringProperty(state);
 		this.zip = new SimpleStringProperty(zip);
+		this.authLevel = authLevel;
 	}
 	public long getAdminId() {
 		return adminId.get();
@@ -73,5 +79,24 @@ public class EditAdminSearchBean {
 	
 	public void setZip(String zip) {
 		this.zip = new SimpleStringProperty(zip);
+	}
+	public AuthorizationLevel getAuthLevel() {
+		return authLevel;
+	}
+	public void setAuthLevel(AuthorizationLevel authLevel) {
+		this.authLevel = authLevel;
+	}
+	
+	public Admin getAdministartor() {
+		Admin temp = new Admin();
+		temp.setUniqueStaffId(this.getAdminId());
+		temp.setFirstName(this.getFirstName());
+		temp.setLastName(this.getLastName());
+		temp.setPhoneNumber(this.getPhone());
+		temp.setRole(this.getAuthLevel());
+		temp.setAddress(new Address(this.getStreet(), this.getCity(), 
+				this.getState(), this.getZip()));
+		temp.setRole(this.getAuthLevel());
+		return temp;
 	}
 }

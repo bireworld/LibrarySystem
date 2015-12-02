@@ -6,10 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.tay.backendinterface.ServiceException;
 import mum.mpp.tay.entity.Address;
+import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Member;
+import mum.mpp.utils.DialogUtil;
 
 public class AddMemberController {
 	@FXML
@@ -65,10 +68,37 @@ public class AddMemberController {
 		member.setPhoneNumber(txtfPhone.getText());
 		
 		try {
-			adminInterface.addMember(member);
+			Member l = adminInterface.addMember(member);
+			System.out.println("ret value "+l);
+			if(l != null) {
+				DialogUtil.showDialog("Add Member", "Member ID : "+l.getUniqueMemberNumber(),
+						""+l.getFirstName()+" "+l.getLastName()+" added into the Library System.", AlertType.INFORMATION);
+				clearFields();
+			} else {
+				DialogUtil.showDialog("Error", "Error adding new member",
+						"Please try adding new member again after a few minutes.", AlertType.ERROR);
+			}
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			DialogUtil.showDialog("Error", "Error adding new member : "+e.getMessage(),
+					e.getStackTrace().toString(), AlertType.ERROR);
 		}
+	}
+	
+	private void clearFields() {
+		txtfFirstName.setText("");
+		txtfLastName.setText("");
+		txtfStreet.setText("");
+		txtfCity.setText("");
+		txtfState.setText("");
+		txtfZip.setText("");
+		txtfPhone.setText("");
+	}
+
+	public AdminInterface getAdminInterface() {
+		return adminInterface;
+	}
+
+	public void setAdminInterface(AdminInterface adminInterface) {
+		this.adminInterface = adminInterface;
 	}
 }

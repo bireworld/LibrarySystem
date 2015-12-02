@@ -6,10 +6,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.tay.backendinterface.ServiceException;
 import mum.mpp.tay.entity.Address;
+import mum.mpp.tay.entity.AuthorizationLevel;
 import mum.mpp.tay.entity.Librarian;
+import mum.mpp.utils.AuthUtils;
+import mum.mpp.utils.DialogUtil;
 
 public class AddLibrarianController {
 	@FXML
@@ -41,7 +45,7 @@ public class AddLibrarianController {
 	
 	private AdminInterface adminInterface;
 	
-	private ObservableList<String> authLevelStrings = FXCollections.observableArrayList("ADMIN", "LIBRARIAN", "BOTH");
+	private ObservableList<String> authLevelStrings = FXCollections.observableArrayList("ADMIN", "LIBRARIAN", "FULLACCESS");
 	
 	@FXML
 	public void initialize() {
@@ -63,12 +67,43 @@ public class AddLibrarianController {
 		librarian.setAddress(new Address(txtfStreet.getText(),txtfCity.getText(),
 				txtfState.getText(), txtfZip.getText()));
 		librarian.setPhoneNumber(txtfPhone.getText());
+		AuthorizationLevel authLevel = AuthUtils.getAuthLevelFromString((String)cmbfAuthLevel.getValue());
+		librarian.setRole(authLevel);
 		
 		try {
-			adminInterface.addLibrarian(librarian);
+			Librarian l = adminInterface.addLibrarian(librarian);
+			System.out.println("ret value "+l);
+			if(l != null) {
+				DialogUtil.showDialog("Add Librarian", "Librarian ID : "+l.getUniqueStaffId(),
+						""+l.getFirstName()+" "+l.getLastName()+" added into the Library System.", AlertType.INFORMATION);
+				clearFields();
+			} else {
+				DialogUtil.showDialog("Error", "Error adding new librarian",
+						"Please try adding new librarian again after a few minutes.", AlertType.ERROR);
+			}
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			DialogUtil.showDialog("Error", "Error adding new librarian : "+e.getMessage(),
+					e.getStackTrace().toString(), AlertType.ERROR);
 		}
+	}
+	
+	private void clearFields() {
+		txtfFirstName.setText("");
+		txtfLastName.setText("");
+		txtfStreet.setText("");
+		txtfCity.setText("");
+		txtfState.setText("");
+		txtfZip.setText("");
+		txtfPhone.setText("");
+		
+		cmbfAuthLevel.setValue(authLevelStrings.get(1));
+	}
+
+	public AdminInterface getAdminInterface() {
+		return adminInterface;
+	}
+
+	public void setAdminInterface(AdminInterface adminInterface) {
+		this.adminInterface = adminInterface;
 	}
 }

@@ -8,12 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import mum.mpp.tay.backendinterface.AdminIMP;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.views.AdminController;
 
 public class Admin extends Application {
 	
-	private AdminInterface adminInterface;
+	private AdminInterface adminInterface = new AdminIMP();
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -28,6 +29,7 @@ public class Admin extends Application {
 		AdminController adminController = loader.getController();
 		adminController.setPrimaryStage(primaryStage);
 		adminController.setScene(scene);
+		adminController.setAdminInterface(adminInterface);
 	}
 	
 	private void loadMenuBar(BorderPane parent) throws IOException {
