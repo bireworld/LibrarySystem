@@ -1,22 +1,14 @@
 package mum.mpp.tay.vo;
 
-import java.time.LocalDate;
 import java.util.Date;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 public class BookVo {
     private StringProperty iSBNNumber;
@@ -51,12 +43,12 @@ public class BookVo {
 //		this.checkinDate = checkinDate;
 	}
 
-	public String getTitle() {
-		return title.get();
+	public StringProperty getTitle() {
+		return title;
 	}
 
-	public Integer getMaximumCheckoutDurationInDays() {
-		return maximumCheckoutDurationInDays.get();
+	public IntegerProperty getMaximumCheckoutDurationInDays() {
+		return maximumCheckoutDurationInDays;
 	}
 
 	public SimpleLongProperty getCopyNumber() {
