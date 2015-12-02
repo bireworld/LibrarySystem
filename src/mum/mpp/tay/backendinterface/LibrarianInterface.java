@@ -7,10 +7,9 @@ package mum.mpp.tay.backendinterface;
 
 import java.util.List;
 import mum.mpp.tay.entity.Book;
-import mum.mpp.tay.entity.BookCopy;
 import mum.mpp.tay.entity.CheckoutRecord;
-import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Member;
+import mum.mpp.tay.entity.Staff;
 
 /**
  *
@@ -18,7 +17,7 @@ import mum.mpp.tay.entity.Member;
  */
 public interface LibrarianInterface {
 
-    Librarian getLibrarianObject();
+    Staff getThisStaffObject();
 
     CheckoutRecord checkout(String bookISBN, long memberId) throws ServiceException;
 

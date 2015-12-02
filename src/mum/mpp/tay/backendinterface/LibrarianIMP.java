@@ -16,8 +16,8 @@ import mum.mpp.tay.controller.MemberJpaController;
 import mum.mpp.tay.entity.Book;
 import mum.mpp.tay.entity.BookCopy;
 import mum.mpp.tay.entity.CheckoutRecord;
-import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Member;
+import mum.mpp.tay.entity.Staff;
 
 /**
  *
@@ -26,11 +26,15 @@ import mum.mpp.tay.entity.Member;
 public class LibrarianIMP implements LibrarianInterface {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjectPU");
-    private Librarian librarian;
+    private Staff staffObject;
+
+    LibrarianIMP(Staff staff) {
+        this.staffObject = staff;
+    }
 
     @Override
-    public Librarian getLibrarianObject() {
-        return librarian;
+    public Staff getThisStaffObject() {
+        return staffObject;
     }
 
     @Override

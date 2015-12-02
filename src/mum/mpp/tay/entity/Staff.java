@@ -5,20 +5,30 @@
  */
 package mum.mpp.tay.entity;
 
+import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author 984761
  */
-@MappedSuperclass
-public abstract class Staff extends Person {
+@Entity
+@NamedQueries({
+    @NamedQuery(
+            name = "Staff.findByName",
+            query = "SELECT l FROM Staff l WHERE l.firstName LIKE :fname OR l.lastName LIKE :lname"
+    )
+})
+public class Staff extends Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

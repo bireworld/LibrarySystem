@@ -8,16 +8,14 @@ package mum.mpp.tay.backendinterface;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import mum.mpp.tay.controller.AdminJpaController;
 import mum.mpp.tay.controller.BookCopyJpaController;
 import mum.mpp.tay.controller.BookJpaController;
-import mum.mpp.tay.controller.LibrarianJpaController;
 import mum.mpp.tay.controller.MemberJpaController;
-import mum.mpp.tay.entity.Admin;
+import mum.mpp.tay.controller.StaffJpaController;
 import mum.mpp.tay.entity.Book;
 import mum.mpp.tay.entity.BookCopy;
-import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Member;
+import mum.mpp.tay.entity.Staff;
 
 /**
  *
@@ -26,11 +24,15 @@ import mum.mpp.tay.entity.Member;
 public class AdminIMP implements AdminInterface {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjectPU");
-    Admin adminObject;
+    Staff staffObject;
+
+    AdminIMP(Staff staff) {
+        this.staffObject = staff;
+    }
 
     @Override
-    public Admin getAdminObject() {
-        return adminObject;
+    public Staff getThisStaffObject() {
+        return staffObject;
     }
 
     @Override
@@ -67,33 +69,11 @@ public class AdminIMP implements AdminInterface {
     }
 
     @Override
-    public Librarian addLibrarian(Librarian librarian) throws ServiceException {
+    public Staff addStaff(Staff staff) throws ServiceException {
         try {
-            LibrarianJpaController lC = new LibrarianJpaController(emf);
-            lC.create(librarian);
-            return librarian;
-        } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }
-    }
-
-    @Override
-    public Librarian editLibrarian(Librarian librarian) throws ServiceException {
-        try {
-            LibrarianJpaController lC = new LibrarianJpaController(emf);
-            lC.edit(librarian);
-            return librarian;
-        } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }
-    }
-
-    @Override
-    public Admin addAdmin(Admin admin) throws ServiceException {
-        try {
-            AdminJpaController aC = new AdminJpaController(emf);
-            aC.create(admin);
-            return admin;
+            StaffJpaController aC = new StaffJpaController(emf);
+            aC.create(staff);
+            return staff;
         } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
@@ -101,11 +81,11 @@ public class AdminIMP implements AdminInterface {
     }
 
     @Override
-    public Admin editAdmin(Admin admin) throws ServiceException {
+    public Staff editStaff(Staff staff) throws ServiceException {
         try {
-            AdminJpaController aC = new AdminJpaController(emf);
-            aC.edit(admin);
-            return admin;
+            StaffJpaController aC = new StaffJpaController(emf);
+            aC.edit(staff);
+            return staff;
         } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
@@ -134,19 +114,19 @@ public class AdminIMP implements AdminInterface {
     }
 
     @Override
-    public Librarian getLibrarian(long id) throws ServiceException {
+    public Staff getStaff(long id) throws ServiceException {
         try {
-            LibrarianJpaController lC = new LibrarianJpaController(emf);
-            return lC.findLibrarian(id);
+            StaffJpaController lC = new StaffJpaController(emf);
+            return lC.findStaff(id);
         } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
-    public List<Librarian> searchLibrarianByName(String name) throws ServiceException {
+    public List<Staff> searchStaffByName(String name) throws ServiceException {
         try {
-            LibrarianJpaController lC = new LibrarianJpaController(emf);
+            StaffJpaController lC = new StaffJpaController(emf);
             return lC.findByName(name);
         } catch (Exception e) {
             throw new ServiceException(e.getMessage());
@@ -154,40 +134,10 @@ public class AdminIMP implements AdminInterface {
     }
 
     @Override
-    public List<Librarian> getAllLibrarian() throws ServiceException {
+    public List<Staff> getAllStaff() throws ServiceException {
         try {
-            LibrarianJpaController lC = new LibrarianJpaController(emf);
-            return lC.findLibrarianEntities();
-        } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }
-    }
-
-    @Override
-    public Admin getAdmin(long id) throws ServiceException {
-        try {
-            AdminJpaController lC = new AdminJpaController(emf);
-            return lC.findAdmin(id);
-        } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }
-    }
-
-    @Override
-    public List<Admin> searchAdminByName(String name) throws ServiceException {
-        try {
-            AdminJpaController lC = new AdminJpaController(emf);
-            return lC.findByName(name);
-        } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }
-    }
-
-    @Override
-    public List<Admin> getAllAdmins() throws ServiceException {
-        try {
-            AdminJpaController lC = new AdminJpaController(emf);
-            return lC.findAdminEntities();
+            StaffJpaController lC = new StaffJpaController(emf);
+            return lC.findStaffEntities();
         } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
