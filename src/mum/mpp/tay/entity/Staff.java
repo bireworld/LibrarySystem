@@ -18,7 +18,7 @@ import javax.persistence.MappedSuperclass;
  * @author 984761
  */
 @MappedSuperclass
-public abstract class Staff extends Person{
+public abstract class Staff extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,6 +41,11 @@ public abstract class Staff extends Person{
 
     public void setRole(AuthorizationLevel role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff{" + "uniqueStaffId=" + uniqueStaffId + ", role=" + role + '}' + super.toString();
     }
 
 }

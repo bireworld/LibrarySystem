@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,6 +23,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "member_table")
+@NamedQueries({
+    @NamedQuery(
+            name = "Member.findByName",
+            query = "SELECT l FROM Member l WHERE l.firstName LIKE :fname OR l.lastName LIKE :lname"
+    )
+})
 public class Member extends Person implements Serializable {
 
     public Member() {

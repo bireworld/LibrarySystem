@@ -11,9 +11,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import mum.mpp.tay.controller.exceptions.NonexistentEntityException;
+import mum.mpp.tay.entity.Book;
 import mum.mpp.tay.entity.Librarian;
 
 /**
@@ -122,6 +124,28 @@ public class LibrarianJpaController implements Serializable {
         }
     }
 
+    public Librarian findByName(String name) {
+        EntityManager em = null;
+        try {
+            name = name.trim();
+            String[] words = name.split(" ");
+            if (words.length == 0) {
+                return null;
+            }
+
+            em = getEntityManager();
+            TypedQuery<Librarian> query = em.createNamedQuery("Librarian.findByName", Librarian.class);
+
+            query.setParameter("fname", "%" + words[0] + "%");
+            query.setParameter("lname", "%" + words[words.length - 1] + "%");
+            Librarian librarian = query.getSingleResult();
+            return librarian;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public int getLibrarianCount() {
         EntityManager em = getEntityManager();
         try {
@@ -134,5 +158,5 @@ public class LibrarianJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

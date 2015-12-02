@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 @Entity
 @NamedQueries({
     @NamedQuery(
-            name = "findByTitle",
+            name = "book.findByTitle",
             query = "SELECT b FROM Book b WHERE b.title LIKE :title"
     )
 })

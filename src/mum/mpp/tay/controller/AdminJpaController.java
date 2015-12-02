@@ -11,10 +11,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import mum.mpp.tay.controller.exceptions.NonexistentEntityException;
 import mum.mpp.tay.entity.Admin;
+import mum.mpp.tay.entity.Librarian;
 
 /**
  *
@@ -119,6 +121,28 @@ public class AdminJpaController implements Serializable {
             return em.find(Admin.class, id);
         } finally {
             em.close();
+        }
+    }
+
+    public Admin findByName(String name) {
+        EntityManager em = null;
+        try {
+            name = name.trim();
+            String[] words = name.split(" ");
+            if (words.length == 0) {
+                return null;
+            }
+
+            em = getEntityManager();
+            TypedQuery<Admin> query = em.createNamedQuery("Admin.findByName", Admin.class);
+
+            query.setParameter("fname", "%" + words[0] + "%");
+            query.setParameter("lname", "%" + words[words.length - 1] + "%");
+            Admin librarian = query.getSingleResult();
+            return librarian;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

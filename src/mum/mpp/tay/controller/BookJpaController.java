@@ -112,7 +112,7 @@ public class BookJpaController implements Serializable {
         EntityManager em = null;
         try {
             em = getEntityManager();
-            TypedQuery<Book> query = em.createNamedQuery("findByTitle", Book.class);
+            TypedQuery<Book> query = em.createNamedQuery("book.findByTitle", Book.class);
             query.setParameter("title", "%" + title + "%");
             Book book = query.getSingleResult();
             return book;

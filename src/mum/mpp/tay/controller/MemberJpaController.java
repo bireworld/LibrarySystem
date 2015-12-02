@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import mum.mpp.tay.controller.exceptions.NonexistentEntityException;
+import mum.mpp.tay.entity.Admin;
 import mum.mpp.tay.entity.Member;
 
 /**
@@ -174,6 +176,28 @@ public class MemberJpaController implements Serializable {
         }
     }
 
+    public Member findByName(String name) {
+        EntityManager em = null;
+        try {
+            name = name.trim();
+            String[] words = name.split(" ");
+            if (words.length == 0) {
+                return null;
+            }
+
+            em = getEntityManager();
+            TypedQuery<Member> query = em.createNamedQuery("Member.findByName", Member.class);
+
+            query.setParameter("fname", "%" + words[0] + "%");
+            query.setParameter("lname", "%" + words[words.length - 1] + "%");
+            Member librarian = query.getSingleResult();
+            return librarian;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public int getMemberCount() {
         EntityManager em = getEntityManager();
         try {
@@ -186,5 +210,5 @@ public class MemberJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }
