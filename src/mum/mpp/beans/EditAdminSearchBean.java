@@ -3,9 +3,8 @@ package mum.mpp.beans;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import mum.mpp.tay.entity.Address;
-import mum.mpp.tay.entity.Admin;
-import mum.mpp.tay.entity.Author;
 import mum.mpp.tay.entity.AuthorizationLevel;
+import mum.mpp.tay.entity.Staff;
 
 public class EditAdminSearchBean {
 	private SimpleLongProperty adminId;
@@ -87,8 +86,8 @@ public class EditAdminSearchBean {
 		this.authLevel = authLevel;
 	}
 	
-	public Admin getAdministartor() {
-		Admin temp = new Admin();
+	public Staff getAdministartor() {
+		Staff temp = new Staff();
 		temp.setUniqueStaffId(this.getAdminId());
 		temp.setFirstName(this.getFirstName());
 		temp.setLastName(this.getLastName());

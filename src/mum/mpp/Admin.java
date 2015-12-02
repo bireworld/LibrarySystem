@@ -2,22 +2,18 @@ package mum.mpp;
 
 import java.io.IOException;
 
-import com.guigarage.flatterfx.FlatterFX;
-import com.guigarage.responsive.ResponsiveHandler;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import mum.mpp.tay.backendinterface.AdminIMP;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.views.AdminController;
 
 public class Admin extends Application {
 	
-	private AdminInterface adminInterface = new AdminIMP();
+	private AdminInterface adminInterface ;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -33,6 +29,8 @@ public class Admin extends Application {
 		adminController.setPrimaryStage(primaryStage);
 		adminController.setScene(scene);
 		adminController.setAdminInterface(adminInterface);
+		
+		
 		
 		scene.getStylesheets().add(getClass().getResource("css/JMetroLightTheme.css").toExternalForm());
 		

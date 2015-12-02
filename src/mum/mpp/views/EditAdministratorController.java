@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.guigarage.flatterfx.FlatterFX;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -28,9 +26,6 @@ import mum.mpp.SearchBy;
 import mum.mpp.beans.EditAdminSearchBean;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.tay.backendinterface.ServiceException;
-import mum.mpp.tay.entity.Address;
-import mum.mpp.tay.entity.Admin;
-import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Staff;
 import mum.mpp.utils.DialogUtil;
 
@@ -52,6 +47,9 @@ public class EditAdministratorController {
 
 	@FXML
 	private TableColumn tcolAdminId;
+	
+	@FXML
+	private TableColumn tcolRole;
 
 	@FXML
 	private TableColumn tcolFirstName;
@@ -83,7 +81,7 @@ public class EditAdministratorController {
 
 	private ObservableList<EditAdminSearchBean> searchResult;// =
 																// FXCollections.observableArrayList();
-	private List<Admin> searchResultList;
+	private List<Staff> searchResultList;
 	private Set<Integer> editPosSet;
 
 	@FXML
@@ -104,6 +102,7 @@ public class EditAdministratorController {
 	private void initTableView() {
 
 		tcolAdminId.setCellValueFactory(new PropertyValueFactory<EditAdminSearchBean, String>("adminId"));
+		tcolRole.setCellValueFactory(new PropertyValueFactory<EditAdminSearchBean, String>("authLevel"));
 		tcolFirstName.setCellValueFactory(new PropertyValueFactory<EditAdminSearchBean, String>("firstName"));
 		tcolLastName.setCellValueFactory(new PropertyValueFactory<EditAdminSearchBean, String>("lastName"));
 		tcolPhone.setCellValueFactory(new PropertyValueFactory<EditAdminSearchBean, String>("phone"));
@@ -228,9 +227,9 @@ public class EditAdministratorController {
 			while (iterator.hasNext()) {
 				Integer pos = iterator.next();
 				iterator.remove();
-				Admin l = null;
+				Staff l = null;
 
-				l = adminInterface.editAdmin((Admin) searchResult.get(pos).getAdministartor());
+				l = adminInterface.editStaff((Staff) searchResult.get(pos).getAdministartor());
 				if (l != null) {
 					successEdits.put(l.getUniqueStaffId(), l.getFirstName() + " " + l.getLastName());
 					editCount++;
@@ -249,13 +248,13 @@ public class EditAdministratorController {
 		}
 	}
 
-	private List<Admin> searchData(String searchString, SearchBy searchBy) {
-		List<Admin> list = new ArrayList<>();
+	private List<Staff> searchData(String searchString, SearchBy searchBy) {
+		List<Staff> list = new ArrayList<>();
 
 		if (searchBy == SearchBy.ById) {
 			Long id = Long.parseLong(searchString);
 			try {
-				Admin l = adminInterface.getAdmin(id);
+				Staff l = adminInterface.getStaff(id);
 				if (l != null)
 					list.add(l);
 			} catch (ServiceException e) {
@@ -263,7 +262,7 @@ public class EditAdministratorController {
 			}
 		} else if (searchBy == searchBy.ByName) {
 			try {
-				List<Admin> tempList = adminInterface.searchAdminByName(searchString);
+				List<Staff> tempList = adminInterface.searchStaffByName(searchString);
 
 				if(tempList!=null)
 					tempList.forEach(l->list.add(l));
@@ -271,29 +270,6 @@ public class EditAdministratorController {
 				e.printStackTrace();
 			}
 		}
-
-		return list;
-	}
-
-	private List<Admin> loadData() {
-		List<Admin> list = new ArrayList<>();
-
-		Admin s1 = new Admin();
-		s1.setUniqueStaffId(1);
-		s1.setFirstName("Bob");
-		s1.setLastName("Marley");
-		s1.setPhoneNumber("646654431");
-		s1.setAddress(new Address("4th St.", "Fairfield", "Iowa", "56524"));
-
-		Admin s2 = new Admin();
-		s2.setUniqueStaffId(1);
-		s2.setFirstName("Harly");
-		s2.setLastName("David");
-		s2.setPhoneNumber("646654431");
-		s2.setAddress(new Address("4th St.", "Fairfield", "Iowa", "56524"));
-
-		list.add(s1);
-		list.add(s2);
 
 		return list;
 	}

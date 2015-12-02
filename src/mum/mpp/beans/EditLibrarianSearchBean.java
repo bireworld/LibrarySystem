@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import mum.mpp.tay.entity.Address;
 import mum.mpp.tay.entity.AuthorizationLevel;
-import mum.mpp.tay.entity.Librarian;
+import mum.mpp.tay.entity.Staff;
 
 public class EditLibrarianSearchBean {
 	private SimpleLongProperty staffId;
@@ -86,8 +86,8 @@ public class EditLibrarianSearchBean {
 	public void setAuthLevel(AuthorizationLevel authLevel) {
 		this.authLevel = authLevel;
 	}
-	public Librarian getLibrarian() {
-		Librarian temp = new Librarian();
+	public Staff getLibrarian() {
+		Staff temp = new Staff();
 		temp.setUniqueStaffId(this.getStaffId());
 		temp.setFirstName(this.getFirstName());
 		temp.setLastName(this.getLastName());

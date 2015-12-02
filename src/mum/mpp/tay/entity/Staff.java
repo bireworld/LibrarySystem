@@ -36,7 +36,7 @@ public class Staff extends Person implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "staff_role")
     protected AuthorizationLevel role;
-    protected String password;
+    protected String password ="123";
 
     public long getUniqueStaffId() {
         return uniqueStaffId;

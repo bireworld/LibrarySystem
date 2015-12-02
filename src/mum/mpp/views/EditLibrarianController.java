@@ -27,7 +27,6 @@ import mum.mpp.beans.EditLibrarianSearchBean;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.tay.backendinterface.ServiceException;
 import mum.mpp.tay.entity.Address;
-import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Staff;
 import mum.mpp.utils.DialogUtil;
 
@@ -80,7 +79,7 @@ public class EditLibrarianController {
 
 	private ObservableList<EditLibrarianSearchBean> searchResult;// =
 																	// FXCollections.observableArrayList();
-	private List<Librarian> searchResultList;
+	private List<Staff> searchResultList;
 	private Set<Integer> editPosSet;
 
 	@FXML
@@ -225,9 +224,9 @@ public class EditLibrarianController {
 			while (iterator.hasNext()) {
 				Integer pos = iterator.next();
 				iterator.remove();
-				Librarian l = null;
+				Staff l = null;
 
-				l = adminInterface.editLibrarian((Librarian) searchResult.get(pos).getLibrarian());
+				l = adminInterface.editStaff((Staff) searchResult.get(pos).getLibrarian());
 				if (l != null) {
 					successEdits.put(l.getUniqueStaffId(), l.getFirstName() + " " + l.getLastName());
 					editCount++;
@@ -246,13 +245,13 @@ public class EditLibrarianController {
 		}
 	}
 
-	private List<Librarian> searchData(String searchString, SearchBy searchBy) {
-		List<Librarian> list = new ArrayList<>();
+	private List<Staff> searchData(String searchString, SearchBy searchBy) {
+		List<Staff> list = new ArrayList<>();
 
 		if (searchBy == SearchBy.ById) {
 			Long id = Long.parseLong(searchString);
 			try {
-				Librarian l = adminInterface.getLibrarian(id);
+				Staff l = adminInterface.getStaff(id);
 				if (l != null)
 					list.add(l);
 			} catch (ServiceException e) {
@@ -260,7 +259,7 @@ public class EditLibrarianController {
 			}
 		} else if (searchBy == searchBy.ByName) {
 			try {
-				List<Librarian> tempList = adminInterface.searchLibrarianByName(searchString);
+				List<Staff> tempList = adminInterface.searchStaffByName(searchString);
 
 				if(tempList!=null)
 					tempList.forEach(l->list.add(l));
@@ -268,28 +267,6 @@ public class EditLibrarianController {
 				e.printStackTrace();
 			}
 		}
-
-		return list;
-	}
-
-	private List<Librarian> loadData() {
-		List<Librarian> list = new ArrayList<>();
-		Librarian s1 = new Librarian();
-		s1.setUniqueStaffId(1);
-		s1.setFirstName("Bob");
-		s1.setLastName("Marley");
-		s1.setPhoneNumber("646654431");
-		s1.setAddress(new Address("4th St.", "Fairfield", "Iowa", "56524"));
-
-		Librarian s2 = new Librarian();
-		s2.setUniqueStaffId(1);
-		s2.setFirstName("Harly");
-		s2.setLastName("David");
-		s2.setPhoneNumber("646654431");
-		s2.setAddress(new Address("4th St.", "Fairfield", "Iowa", "56524"));
-
-		list.add(s1);
-		list.add(s2);
 
 		return list;
 	}

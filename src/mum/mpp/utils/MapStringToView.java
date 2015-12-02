@@ -8,20 +8,16 @@ import mum.mpp.ActionType;
 public class MapStringToView {
 	static Map<String,String> viewMap = new HashMap<>();
 	static {
-		viewMap.put("New Administrator", "AddAdministrator.fxml");
-		viewMap.put("Edit Administrator", "EditAdministrator.fxml");
-		viewMap.put("New Librarian", "AddLibrarian.fxml");
-		viewMap.put("Edit Librarian", "EditLibrarian.fxml");
+		viewMap.put("New Staff", "AddStaff.fxml");
+		viewMap.put("Edit Staff", "EditStaff.fxml");
 		viewMap.put("New Member", "AddMember.fxml");
 		viewMap.put("Edit Member", "EditMember.fxml");
 	}
 	
 	static Map<String,ActionType> actionTypeMap = new HashMap<>();
 	static {
-		actionTypeMap.put("New Administrator", ActionType.ADD_ADMIN);
-		actionTypeMap.put("Edit Administrator", ActionType.EDIT_ADMIN);
-		actionTypeMap.put("New Librarian", ActionType.ADD_LIBRARIAN);
-		actionTypeMap.put("Edit Librarian", ActionType.EDIT_LIBRARIAN);
+		actionTypeMap.put("New Staff", ActionType.ADD_STAFF);
+		actionTypeMap.put("Edit Staff", ActionType.EDIT_STAFF);
 		actionTypeMap.put("New Member", ActionType.ADD_MEMBER);
 		actionTypeMap.put("Edit Member", ActionType.EDIT_MEMBER);
 	}

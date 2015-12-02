@@ -47,22 +47,20 @@ public class AdminController {
 		TreeItem<String> root = new TreeItem<>("Library Menu", rootIcon);
 		root.setExpanded(true);
 		
-		TreeItem<String> ad = new TreeItem<>("Administrator");
-		ad.setExpanded(true);
-		TreeItem<String> lib = new TreeItem<>("Librarian");
-		lib.setExpanded(true);
+		TreeItem<String> st = new TreeItem<>("Staff");
+		st.setExpanded(true);
 		TreeItem<String> mem = new TreeItem<>("Member");
 		mem.setExpanded(true);
 		
-		root.getChildren().addAll(ad, lib, mem);
+		root.getChildren().addAll(st, mem);
 		
-		TreeItem<String> adAdmin = new TreeItem<>("New Administrator");
-		TreeItem<String> editAdmin = new TreeItem<>("Edit Administrator");
-		ad.getChildren().addAll(adAdmin, editAdmin);
+		//TreeItem<String> adAdmin = new TreeItem<>("New Administrator");
+		//TreeItem<String> editAdmin = new TreeItem<>("Edit Administrator");
+		//ad.getChildren().addAll(adAdmin, editAdmin);
 		
-		TreeItem<String> adLib = new TreeItem<>("New Librarian");
-		TreeItem<String> editLib = new TreeItem<>("Edit Librarian");
-		lib.getChildren().addAll(adLib, editLib);
+		TreeItem<String> adSt = new TreeItem<>("New Staff");
+		TreeItem<String> editSt = new TreeItem<>("Edit Staff");
+		st.getChildren().addAll(adSt, editSt);
 		
 		TreeItem<String> adMem = new TreeItem<>("New Member");
 		TreeItem<String> editMem = new TreeItem<>("Edit Member");
@@ -103,17 +101,11 @@ public class AdminController {
 	}
 	
 	private void delegateAdminInterface(FXMLLoader loader, ActionType actionType) {
-		if(actionType == ActionType.ADD_ADMIN) {
+		if(actionType == ActionType.ADD_STAFF) {
 			AddAdministratorController c = (AddAdministratorController)loader.getController();
 			c.setAdminInterface(adminInterface);
-		} else if(actionType == ActionType.EDIT_ADMIN) {
+		} else if(actionType == ActionType.EDIT_STAFF) {
 			EditAdministratorController c = (EditAdministratorController)loader.getController();
-			c.setAdminInterface(adminInterface);
-		} else if(actionType == ActionType.ADD_LIBRARIAN) {
-			AddLibrarianController c = (AddLibrarianController)loader.getController();
-			c.setAdminInterface(adminInterface);
-		} else if(actionType == ActionType.EDIT_LIBRARIAN) {
-			EditLibrarianController c = (EditLibrarianController)loader.getController();
 			c.setAdminInterface(adminInterface);
 		} else if(actionType == ActionType.ADD_MEMBER) {
 			AddMemberController c = (AddMemberController)loader.getController();

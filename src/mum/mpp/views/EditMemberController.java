@@ -27,7 +27,6 @@ import mum.mpp.beans.EditMemberSearchBean;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.tay.backendinterface.ServiceException;
 import mum.mpp.tay.entity.Address;
-import mum.mpp.tay.entity.Librarian;
 import mum.mpp.tay.entity.Member;
 import mum.mpp.utils.DialogUtil;
 

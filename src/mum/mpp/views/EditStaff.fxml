@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mum.mpp.views.EditAdministratorController">
+	<left>
+		<GridPane prefHeight="585.0" prefWidth="954.0" BorderPane.alignment="CENTER">
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="0.0" prefWidth="0.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="178.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="107.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="257.0" minWidth="0.0" prefWidth="17.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="381.0" minWidth="10.0" prefWidth="206.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="180.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="0.0" prefWidth="0.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<StackPane alignment="BOTTOM_RIGHT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="14">
+					<children>
+						<Button fx:id="btnSaveEdit" mnemonicParsing="false" onAction="#btnSaveEdit_click" text="Save Edit" />
+					</children>
+				</StackPane>
+				<TextField fx:id="txtfSearchBox" prefHeight="25.0" prefWidth="230.0" promptText="Type Staff ID or Name..." GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+				<Button fx:id="btnSearch" mnemonicParsing="false" onAction="#btnSearch_click" text="Search" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+					<children>
+						<RadioButton fx:id="rbtnByName" mnemonicParsing="false" prefHeight="17.0" prefWidth="94.0" text="by Name" />
+						<RadioButton fx:id="rbtnByAdminId" mnemonicParsing="false" prefHeight="17.0" prefWidth="94.0" text="by Staff ID" />
+					</children>
+				</HBox>
+				<TableView fx:id="tblvSearchResult" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" GridPane.rowSpan="10">
+					<columns>
+						<TableColumn fx:id="tcolAdminId" prefWidth="75.0" text="Staff ID" />
+						<TableColumn fx:id="tcolRole" prefWidth="75.0" text="ROLE" />
+						<TableColumn fx:id="tcolFirstName" prefWidth="94.0" text="First Name" />
+						<TableColumn fx:id="tcolLastName" prefWidth="94.0" text="Last Name" />
+						<TableColumn fx:id="tcolPhone" prefWidth="94.0" text="Phone" />
+						<TableColumn fx:id="tcolStreet" prefWidth="94.0" text="Street" />
+						<TableColumn fx:id="tcolState" prefWidth="100.0" text="State" />
+						<TableColumn fx:id="tcolCity" prefWidth="100.0" text="City" />
+						<TableColumn fx:id="tcolZip" prefWidth="100.0" text="Zip" />
+					</columns>
+				</TableView>
+			</children>
+		</GridPane>
+	</left>
+</BorderPane>

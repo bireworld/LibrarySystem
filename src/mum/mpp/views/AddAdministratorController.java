@@ -3,16 +3,16 @@ package mum.mpp.views;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import mum.mpp.Admin;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.tay.backendinterface.ServiceException;
 import mum.mpp.tay.entity.Address;
-import mum.mpp.tay.entity.Admin;
 import mum.mpp.tay.entity.AuthorizationLevel;
-import mum.mpp.tay.entity.Librarian;
+import mum.mpp.tay.entity.Staff;
 import mum.mpp.utils.AuthUtils;
 import mum.mpp.utils.DialogUtil;
 
@@ -62,7 +62,7 @@ public class AddAdministratorController {
 		 * validation still left to do
 		 */
 		
-		Admin admin = new Admin();
+		Staff admin = new Staff();
 		admin.setFirstName(txtfFirstName.getText());
 		admin.setLastName(txtfLastName.getText());
 		admin.setAddress(new Address(txtfStreet.getText(),txtfCity.getText(),
@@ -72,7 +72,9 @@ public class AddAdministratorController {
 		admin.setRole(authLevel);
 		
 		try {
-			Admin l = adminInterface.addAdmin(admin);
+			if(adminInterface==null)
+				System.out.println("Null adminInterface");
+			Staff l = adminInterface.addStaff(admin);
 			System.out.println("ret value "+l);
 			if(l != null) {
 				DialogUtil.showDialog("Add Administrator", "Administrator ID : "+l.getUniqueStaffId(),

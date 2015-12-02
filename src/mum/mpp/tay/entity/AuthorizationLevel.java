@@ -11,5 +11,17 @@ package mum.mpp.tay.entity;
  */
 public enum AuthorizationLevel {
 
-    LIBRARIAN, ADMIN, FULLACCESS
+	LIBRARIAN("Librarian"), ADMIN("Admin"), FULLACCESS("Super");
+
+	private String value;
+
+	private AuthorizationLevel(String value) {
+		this.value = value;
+	}
+
+	@Override
+	public String toString() {
+		return value;
+	}
+
 }

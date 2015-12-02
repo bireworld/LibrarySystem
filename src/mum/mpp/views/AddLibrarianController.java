@@ -3,15 +3,15 @@ package mum.mpp.views;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.tay.backendinterface.ServiceException;
 import mum.mpp.tay.entity.Address;
 import mum.mpp.tay.entity.AuthorizationLevel;
-import mum.mpp.tay.entity.Librarian;
+import mum.mpp.tay.entity.Staff;
 import mum.mpp.utils.AuthUtils;
 import mum.mpp.utils.DialogUtil;
 
@@ -61,7 +61,7 @@ public class AddLibrarianController {
 		 * validation still left to do
 		 */
 		
-		Librarian librarian = new Librarian();
+		Staff librarian = new Staff();
 		librarian.setFirstName(txtfFirstName.getText());
 		librarian.setLastName(txtfLastName.getText());
 		librarian.setAddress(new Address(txtfStreet.getText(),txtfCity.getText(),
@@ -71,7 +71,7 @@ public class AddLibrarianController {
 		librarian.setRole(authLevel);
 		
 		try {
-			Librarian l = adminInterface.addLibrarian(librarian);
+			Staff l = adminInterface.addStaff(librarian);
 			System.out.println("ret value "+l);
 			if(l != null) {
 				DialogUtil.showDialog("Add Librarian", "Librarian ID : "+l.getUniqueStaffId(),
