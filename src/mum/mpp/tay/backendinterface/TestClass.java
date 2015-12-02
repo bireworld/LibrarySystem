@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package mum.mpp.tay.backendinterface;
 
 import java.util.ArrayList;
@@ -211,7 +216,6 @@ public class TestClass {
         admin.setRole(AuthorizationLevel.LIBRARIAN);
         return admin;
     }
-<<<<<<< HEAD
 
     public static Staff createAllAccessObject() {
 
@@ -230,6 +234,3 @@ public class TestClass {
         return admin;
     }
 }
-=======
-}
->>>>>>> 42a40255e7d214921a966af00d8e89aebf4ce0ca
