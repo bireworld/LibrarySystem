@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import mum.mpp.AddLibrarian;
+import mum.mpp.ActionType;
 import mum.mpp.utils.MapStringToView;
 
 public class AdminController {
@@ -84,11 +84,13 @@ public class AdminController {
 	private void handleTreeMenuClick(TreeItem<String> selectedItem) throws Exception {
 		System.out.println(selectedItem.getValue());
 		
-		String view = MapStringToView.map(selectedItem.getValue());
-		loadContentArea(view);
+		String view = MapStringToView.mapView(selectedItem.getValue());
+		ActionType actionType = MapStringToView.mapAction(selectedItem.getValue());
+		if(view!=null) loadContentArea(view, actionType);
+
 	}
 	
-	private void loadContentArea(String fxmlName) throws IOException {
+	private void loadContentArea(String fxmlName, ActionType actionType) throws IOException {
 		String filePath = "/mum/mpp/views/"+fxmlName;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(filePath));
 		

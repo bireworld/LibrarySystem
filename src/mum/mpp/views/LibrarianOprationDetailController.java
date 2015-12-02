@@ -52,6 +52,8 @@ public class LibrarianOprationDetailController {
 		//clear err msg
 		memberErrMsg.setText("");
 
+		//clear Data
+		checkoutBooks = FXCollections.observableArrayList();
 		//validate
 		String memberId = memberIdField.getText();
 		if(null == memberId || "".equals(memberId)){
@@ -62,11 +64,11 @@ public class LibrarianOprationDetailController {
 				Long id = Long.valueOf(memberId);
 				
 				//TODO remove mock
-				Member libMember = null;
-//				Member libMember = user.getMemberById(id);
-//				if(null == libMember){
-				if(false){
-					memberErrMsg.setText("wrong id, can not find");
+//				Member libMember = null;
+				Member libMember = user.getMemberById(id);
+				System.out.println(libMember);
+				if(null == libMember){
+					memberErrMsg.setText("Can not find by that ID");
 					return;
 				}else{
 					System.out.println("btnLogin_click2");
@@ -80,7 +82,7 @@ public class LibrarianOprationDetailController {
 			        lastColumn.setCellValueFactory(cellData -> cellData.getValue().getTitle());
 				}
 			}catch(Exception e){
-				memberErrMsg.setText("Pls input number!");
+				memberErrMsg.setText("Pls input a number!");
 				return;
 			}
 			

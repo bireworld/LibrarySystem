@@ -32,6 +32,7 @@ public class TestClass {
     // test admin imp
     public static void main(String[] args) throws ServiceException {
         AdminInterface adminI = new AdminIMP();
+
         //adminI.addAdmin(createAdminObject());
         //adminI.addLibrarian(createLibrarianObject());
         //Book book = adminI.addNewBook(createBookObject());
