@@ -17,18 +17,18 @@ import mum.mpp.tay.entity.Member;
  */
 public interface LibrarianInterface {
 
-    CheckoutRecord checkout(BookCopy copy, Member member);
+    CheckoutRecord checkout(BookCopy copy, Member member) throws ServiceException;
 
-    boolean isBookAvailable(String ISBN);
+    boolean isBookAvailable(String ISBN) throws ServiceException;
 
-    List<Book> getAllBooks();
+    List<Book> getAllBooks() throws ServiceException;
 
-    Book getBookByName(String name);
+    Book getBookByName(String name) throws ServiceException;
 
-    Member getMemberById(long id);
+    Member getMemberById(long id) throws ServiceException;
 
-    List<CheckoutRecord> getMemberRecord(long memberId);
+    List<CheckoutRecord> getMemberRecord(long memberId) throws ServiceException;
 
-    boolean checkIn(BookCopy copy, Member member);
+    boolean checkIn(BookCopy copy, Member member) throws ServiceException;
 
 }

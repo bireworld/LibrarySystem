@@ -25,13 +25,13 @@ public class LibrarianIMP implements LibrarianInterface {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjectPU");
 
     @Override
-    public CheckoutRecord checkout(BookCopy copy, Member member) {
+    public CheckoutRecord checkout(BookCopy copy, Member member) throws ServiceException {
 
         return null;
     }
 
     @Override
-    public boolean isBookAvailable(String ISBN) {
+    public boolean isBookAvailable(String ISBN) throws ServiceException {
 
         BookJpaController bC = new BookJpaController(emf);
         Book book = bC.findBook(ISBN);
@@ -48,25 +48,25 @@ public class LibrarianIMP implements LibrarianInterface {
     }
 
     @Override
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooks() throws ServiceException {
         BookJpaController bC = new BookJpaController(emf);
         return bC.findBookEntities();
     }
 
     @Override
-    public Book getBookByName(String name) {
+    public Book getBookByName(String name) throws ServiceException {
         BookJpaController bC = new BookJpaController(emf);
         return bC.findByTitle(name);
     }
 
     @Override
-    public Member getMemberById(long id) {
+    public Member getMemberById(long id) throws ServiceException {
         MemberJpaController mC = new MemberJpaController(emf);
         return mC.findMember(id);
     }
 
     @Override
-    public List<CheckoutRecord> getMemberRecord(long id) {
+    public List<CheckoutRecord> getMemberRecord(long id) throws ServiceException {
 
         MemberJpaController mC = new MemberJpaController(emf);
         return mC.findMember(id).getRecords();
@@ -74,7 +74,7 @@ public class LibrarianIMP implements LibrarianInterface {
     }
 
     @Override
-    public boolean checkIn(BookCopy copy, Member member) {
+    public boolean checkIn(BookCopy copy, Member member) throws ServiceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
