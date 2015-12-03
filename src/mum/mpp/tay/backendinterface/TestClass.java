@@ -31,13 +31,13 @@ public class TestClass {
     // test admin imp
     public static void main(String[] args) throws ServiceException {
 
-        AllAccessIMP allAcc = (AllAccessIMP) InterfaceFactory.createAnInterface("101", "654321");
-
-        System.out.println(allAcc.getThisStaffObject());
-        if (true) {
-            return;
-        }
-        AdminInterface adminI = (AdminInterface) InterfaceFactory.createAnInterface("1", "123456");
+//        AllAccessIMP allAcc = (AllAccessIMP) InterfaceFactory.createAnInterface("101", "654321");
+//
+//        System.out.println(allAcc.getThisStaffObject());
+//        if (true) {
+//            return;
+//        }
+        AdminInterface adminI = (AdminInterface) InterfaceFactory.createAnInterface("1", "123");
 
         adminI.addStaff(createAllAccessObject());
 

@@ -15,6 +15,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import mum.mpp.tay.controller.exceptions.NonexistentEntityException;
+import mum.mpp.tay.entity.Address;
 import mum.mpp.tay.entity.AuthorizationLevel;
 import mum.mpp.tay.entity.Staff;
 
@@ -27,7 +28,7 @@ public class StaffJpaController implements Serializable {
     public StaffJpaController(EntityManagerFactory emf) {
         this.emf = emf;
 
-        if (false && findStaffEntities().isEmpty()) {
+        if ( findStaffEntities().isEmpty()) {
 
             EntityManager em = getEntityManager();
 
@@ -36,8 +37,10 @@ public class StaffJpaController implements Serializable {
             def.setFirstName("Default");
             def.setLastName("Staff");
             def.setRole(AuthorizationLevel.FULLACCESS);
-            def.setPassword("123456");
-            def.setUniqueStaffId(1);
+            def.setPassword("123");
+            def.setUniqueStaffId(10000);
+            Address address = new  Address();
+            def.setAddress(address);
             create(def);
             em.getTransaction().commit();
         }

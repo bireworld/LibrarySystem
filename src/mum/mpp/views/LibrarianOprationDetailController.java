@@ -233,17 +233,8 @@ public class LibrarianOprationDetailController {
 
 
 	@FXML
-	public void btnLogin_click() {
+	public void btnCheckout_click() {
 		System.out.println("btnLogin_click");
 	}
-	@FXML
-	public void btnLogin_click2() {
-		System.out.println("btnLogin_click2");
 
-	}
-	@FXML
-	public void btnLogin_click3() {
-		System.out.println("btnLogin_click3");
-
-	}
 }
