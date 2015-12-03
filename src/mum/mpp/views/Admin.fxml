@@ -40,6 +40,13 @@
                            </children>
                         </HBox>
                      </center>
+                     <right>
+                        <AnchorPane prefHeight="100.0" prefWidth="133.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label fx:id="lblDateAndTime" layoutX="39.0" layoutY="21.0" />
+                           </children>
+                        </AnchorPane>
+                     </right>
                   </BorderPane>
                </children></StackPane>
          </top>
