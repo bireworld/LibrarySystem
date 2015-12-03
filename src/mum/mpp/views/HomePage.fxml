@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="333.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mum.mpp.views.HomePageController">
+   <children>
+      <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="321.0" prefWidth="557.0">
+         <center>
+            <TableView fx:id="tblvMembers" prefHeight="321.0" prefWidth="607.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="tblcMemberId" prefWidth="75.0" text="Member ID" />
+                <TableColumn fx:id="tblcMemFirstName" prefWidth="101.0" text="First Name" />
+                  <TableColumn fx:id="tblcMemLastName" prefWidth="106.0" text="Last Name" />
+                  <TableColumn fx:id="tblcMemPhone" prefWidth="148.0" text="Phone Number" />
+                  <TableColumn fx:id="tblcNumBooksTaken" prefWidth="125.0" text="No. of books taken" />
+              </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+      <Separator orientation="VERTICAL" prefHeight="321.0" prefWidth="28.0" />
+      <BorderPane prefHeight="321.0" prefWidth="383.0">
+         <center>
+            <TableView prefHeight="321.0" prefWidth="459.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+   </children>
+</FlowPane>

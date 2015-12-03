@@ -3,6 +3,7 @@ package mum.mpp.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import mum.mpp.tay.entity.Address;
@@ -19,6 +20,7 @@ public class EditMemberSearchBean {
 	private SimpleStringProperty state;
 	private SimpleStringProperty zip;
 	private List<CheckoutRecord> checkoutRecList;
+	private SimpleLongProperty numBooks;
 	
 	public EditMemberSearchBean(long memberId, String firstName,
 			String lastName, String phone, String street, String city,
@@ -32,6 +34,13 @@ public class EditMemberSearchBean {
 		this.state = new SimpleStringProperty(state);
 		this.zip = new SimpleStringProperty(zip);
 		this.checkoutRecList = checkoutRecList;
+		
+		if(checkoutRecList!=null) {
+			this.numBooks = new SimpleLongProperty(checkoutRecList.stream()
+									.filter(c->{
+										return (c.getCheckoutDate()!=null);
+									}).map(m->m.getId()).count());
+		}
 	}
 	public long getMemberId() {
 		return memberId.get();
@@ -88,6 +97,16 @@ public class EditMemberSearchBean {
 	}
 	public void setCheckoutRecList(List<CheckoutRecord> checkoutRecList) {
 		this.checkoutRecList = checkoutRecList;
+	}
+	
+	public long getNumBooks() {
+		if(checkoutRecList!=null) {
+			this.numBooks = new SimpleLongProperty(checkoutRecList.stream()
+									.filter(c->{
+										return (c.getCheckoutDate()!=null);
+									}).map(m->m.getId()).count());
+		}
+		return this.numBooks.get();
 	}
 	public Member getMember() {
 		Member temp = new Member();
