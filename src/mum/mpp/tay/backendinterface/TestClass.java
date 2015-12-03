@@ -49,16 +49,16 @@ public class TestClass {
         adminI.addBookCopy(copy);
         Member member2 = adminI.addMember(createMemberObject());
         LibrarianInterface libI = (LibrarianInterface) InterfaceFactory.createAnInterface("" + librarian.getUniqueStaffId(), librarian.getPassword());
-        Book b = libI.getBookByName("roomi");
-        System.out.println("Book:" + b);
+//        Book b = libI.getBookByName("roomi");
+//        System.out.println("Book:" + b);
         Member member = libI.getMemberById(member2.getUniqueMemberNumber());
         System.out.println("Member: " + member);
-        libI.checkout(b.getiSBNNumber(), member.getUniqueMemberNumber());
+//        libI.checkout(b.getiSBNNumber(), member.getUniqueMemberNumber());
         List<CheckoutRecord> records = libI.getMemberRecord(member.getUniqueMemberNumber());
         for (CheckoutRecord rec : records) {
             System.out.println("Record :" + rec);
         }
-        libI.checkIn(b.getiSBNNumber(), member.getUniqueMemberNumber());
+//        libI.checkIn(b.getiSBNNumber(), member.getUniqueMemberNumber());
     }
 
     /*

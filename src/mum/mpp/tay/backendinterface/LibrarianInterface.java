@@ -25,12 +25,12 @@ public interface LibrarianInterface {
 
     List<Book> getAllBooks() throws ServiceException;
 
-    Book getBookByName(String name) throws ServiceException;
+    List<Book> getBookByName(String name) throws ServiceException;
 
     Member getMemberById(long id) throws ServiceException;
 
     List<CheckoutRecord> getMemberRecord(long memberId) throws ServiceException;
 
-    boolean checkIn(String bookISBN, long memberId) throws ServiceException;
+    CheckoutRecord checkIn(long recordId) throws ServiceException;
 
 }
