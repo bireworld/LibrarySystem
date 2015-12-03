@@ -38,27 +38,16 @@ public class LibrarianIMP implements LibrarianInterface {
     }
 
     @Override
-    public boolean checkIn(String bookISBN, long memberId) throws ServiceException {
+    public CheckoutRecord checkIn(CheckoutRecord record, long memberId) throws ServiceException {
         try {
-            MemberJpaController memberController = new MemberJpaController(emf);
-            Member managedMember = memberController.findMember(memberId);
-            BookJpaController bC = new BookJpaController(emf);
-            Book book = bC.findBook(bookISBN);
-            CheckoutRecord record = null;
-            for (int i = managedMember.getRecords().size() - 1; i >= 0; i--) {
-                if (managedMember.getRecords().get(i).getBook().getBook().equals(book) && managedMember.getRecords().get(i).getCheckinDate() == null) {
-                    record = managedMember.getRecords().get(i);
-                    break;
-                }
-            }
-
+            
             // update record
             CheckoutRecordJpaController recordController = new CheckoutRecordJpaController(emf);
             record.getBook().setBorrowed(false);
             record.setCheckinDate(new Date());
             recordController.edit(record);
 
-            return true;
+            return record;
 
         } catch (Exception e) {
             throw new ServiceException(e.getMessage());

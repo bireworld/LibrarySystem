@@ -31,6 +31,6 @@ public interface LibrarianInterface {
 
     List<CheckoutRecord> getMemberRecord(long memberId) throws ServiceException;
 
-    boolean checkIn(String bookISBN, long memberId) throws ServiceException;
+    CheckoutRecord checkIn(CheckoutRecord record, long memberId) throws ServiceException;
 
 }
