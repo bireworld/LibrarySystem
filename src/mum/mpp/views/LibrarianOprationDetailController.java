@@ -82,8 +82,8 @@ public class LibrarianOprationDetailController {
 	private TextField iSBNField;
 	@FXML
 	private TextField searchBookNameField;
-	@FXML
-	private Button searchBookNameButton;
+	// @FXML
+	// private Button searchBookNameButton;
 
 	@FXML
 	private Text memberErrMsg;
@@ -392,6 +392,7 @@ public class LibrarianOprationDetailController {
 				List<Book> books;
 				try {
 					books = user.getBookByName(newValue);
+					System.out.println("Search size:" + books.size());
 					for (Book b : books) {
 						SimpleStringProperty authorsName = new SimpleStringProperty();
 						String names = "";
@@ -404,8 +405,14 @@ public class LibrarianOprationDetailController {
 								new SimpleIntegerProperty(b.getMaximumCheckoutDurationInDays()), null);
 						searchedBookVOs.add(bookVO);
 					}
-
+					System.out.println("Search sizex:" + searchedBookVOs.size());
 					searchedBookTable.setItems(searchedBookVOs);
+
+					sBiSBNNumber.setCellValueFactory(cellData -> cellData.getValue().getiSBNNumber());
+					sBauthors.setCellValueFactory(cellData -> cellData.getValue().getAuthors());
+					sBtitle.setCellValueFactory(cellData -> cellData.getValue().getTitle());
+					sBmaximumCheckoutDurationInDays
+							.setCellValueFactory(cellData -> cellData.getValue().getMaximumCheckoutDurationInDays());
 
 				} catch (ServiceException e) {
 					// TODO Auto-generated catch block
@@ -415,30 +422,6 @@ public class LibrarianOprationDetailController {
 			}
 		});
 	}
-
-	@FXML
-	public void btnSearchBook_click() {
-
-		if (memberIdValid && isbnNoValid) {
-			try {
-				user.checkout(iSBNField.getText(), Long.valueOf(memberIdField.getText()));
-			} catch (ServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		searchMemberInfo();
-
-		iSBNField.setText("");
-		checkoutBtn.setDisable(true);
-		initISBNEnv();
-	}
-
-	@FXML
-	private TableView<SearchedBookVO> searchedBookTable;
 
 	@FXML
 	private SplitPane mainSplitPane;
@@ -455,4 +438,17 @@ public class LibrarianOprationDetailController {
 	private AnchorPane checkOutAnchor;
 	@FXML
 	private AnchorPane searchedBookAnchor;
+
+	@FXML
+	private TableView<SearchedBookVO> searchedBookTable;
+
+	@FXML
+	private TableColumn<SearchedBookVO, String> sBiSBNNumber;
+	@FXML
+	private TableColumn<SearchedBookVO, String> sBtitle;
+	@FXML
+	private TableColumn<SearchedBookVO, String> sBauthors;
+	@FXML
+	private TableColumn<SearchedBookVO, Number> sBmaximumCheckoutDurationInDays;
+
 }
