@@ -78,8 +78,10 @@ public class AdminController {
 		st.setExpanded(true);
 		TreeItem<String> mem = new TreeItem<>("Member");
 		mem.setExpanded(true);
+		TreeItem<String> book = new TreeItem<>("Book");
+		book.setExpanded(true);
 		
-		root.getChildren().addAll(home, st, mem);
+		root.getChildren().addAll(home, st, mem, book);
 		
 		//TreeItem<String> adAdmin = new TreeItem<>("New Administrator");
 		//TreeItem<String> editAdmin = new TreeItem<>("Edit Administrator");
@@ -92,6 +94,10 @@ public class AdminController {
 		TreeItem<String> adMem = new TreeItem<>("New Member");
 		TreeItem<String> editMem = new TreeItem<>("Edit Member");
 		mem.getChildren().addAll(adMem, editMem);
+		
+		TreeItem<String> adBook = new TreeItem<>("Add Book");
+		TreeItem<String> adCopy = new TreeItem<>("Add Book Copy");
+		book.getChildren().addAll(adBook, adCopy);
 		
 		treeMenu.setRoot(root);
 		
