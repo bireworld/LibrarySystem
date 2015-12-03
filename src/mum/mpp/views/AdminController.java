@@ -163,6 +163,9 @@ public class AdminController {
 		} else if(actionType == ActionType.EDIT_MEMBER) {
 			EditMemberController c = (EditMemberController)loader.getController();
 			c.setAdminInterface(adminInterface);
+		} else if(actionType == ActionType.ADD_BOOK) {
+			AddBookController c = (AddBookController)loader.getController();
+			c.setAdminInterface(adminInterface);
 		}
 	}
 
