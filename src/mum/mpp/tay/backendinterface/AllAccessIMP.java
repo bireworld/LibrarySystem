@@ -131,4 +131,9 @@ public class AllAccessIMP implements AllAccessInterface {
 		return adminI.getAllMembers();
 	}
 
+	@Override
+	public Book getBookByISBN(String name) throws ServiceException {
+		return adminI.getBookByISBN(name);
+	}
+
 }
