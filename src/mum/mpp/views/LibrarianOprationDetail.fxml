@@ -12,8 +12,8 @@
         <items>
             <AnchorPane prefHeight="131.0" prefWidth="598.0">
                <children>
-                  <TextField fx:id="memberIdField" layoutX="189.0" layoutY="12.0" promptText="press enter the member id" />
-                  <TextField fx:id="iSBNField" layoutX="189.0" layoutY="56.0" promptText="press enter the ISBN" />
+                  <TextField fx:id="memberIdField" layoutX="189.0" layoutY="12.0" promptText="pls enter the member id" />
+                  <TextField fx:id="iSBNField" layoutX="189.0" layoutY="56.0" promptText="pls enter the ISBN" />
                   <Button fx:id="checkoutBtn" layoutX="288.0" layoutY="102.0" mnemonicParsing="false" onAction="#btnCheckout_click" text="checkout" />
                   <Text fx:id="memberErrMsg" fill="#d00b0b" layoutX="410.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                   <Text fx:id="ISBNErrMsg" fill="#d00b0b" layoutX="410.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" />
