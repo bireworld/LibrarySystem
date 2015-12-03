@@ -83,6 +83,7 @@ public class LibrarianOprationDetailController {
 		String memberId = memberIdField.getText();
 		if(null == memberId || "".equals(memberId)){
 			memberErrMsg.setText("Empty imput");
+			memberErrMsg.setFill(Color.RED);
 			return;
 		}else{
 			try{
@@ -158,6 +159,7 @@ public class LibrarianOprationDetailController {
 			String iSBNNo = iSBNField.getText();
 			if(null == iSBNNo || "".equals(iSBNNo)){
 				ISBNErrMsg.setText("Empty imput");
+				ISBNErrMsg.setFill(Color.RED);
 				return;
 			} else{
 				try {
@@ -175,6 +177,7 @@ public class LibrarianOprationDetailController {
 					return;
 				} catch (ServiceException e) {
 					ISBNErrMsg.setText(e.getMessage());
+					ISBNErrMsg.setFill(Color.RED);
 					return;
 				}
 			}
@@ -263,6 +266,11 @@ public class LibrarianOprationDetailController {
 			}
 		}
 		searchMemberInfo();
+		
+		iSBNField.setText("");
+		checkoutBtn.setDisable(true);
+		initISBNEnv();
+		
 //		System.out.println("btnLogin_click");
 	}
 

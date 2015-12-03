@@ -37,7 +37,7 @@ public class TestClass {
 //        if (true) {
 //            return;
 //        }
-        AdminInterface adminI = (AdminInterface) InterfaceFactory.createAnInterface("1", "123");
+        AdminInterface adminI = (AdminInterface) InterfaceFactory.createAnInterface("10000", "123");
 
         adminI.addStaff(createAllAccessObject());
 
