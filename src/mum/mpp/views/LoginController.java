@@ -79,6 +79,8 @@ public class LoginController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			
+				mainApp.showLibrarianOperationDialog((LibrarianInterface) interfaceObj);
 			} else if (interfaceObj instanceof AdminInterface) {
 				role = AuthorizationLevel.ADMIN;
 				Stage stage = new Stage();
@@ -86,6 +88,7 @@ public class LoginController {
 				admin.setAdminInterface((AdminInterface) interfaceObj);
 				try {
 					admin.start(stage);
+					mainApp.hide();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

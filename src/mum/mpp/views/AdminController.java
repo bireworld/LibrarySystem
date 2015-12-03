@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -15,11 +16,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import mum.mpp.ActionType;
-import mum.mpp.tay.backendinterface.AdminIMP;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.utils.MapStringToView;
 
 public class AdminController {
+	@FXML
+	private ImageView imgvLogo;
+	
+	@FXML
+	private Label lblTitle;
+	
+	@FXML
+	private Label lblSubTitle;
+	
 	@FXML
 	private TreeView treeMenu;
 	

@@ -30,12 +30,9 @@ public class Admin extends Application {
 		adminController.setScene(scene);
 		adminController.setAdminInterface(adminInterface);
 		
-		
-		
 		scene.getStylesheets().add(getClass().getResource("css/JMetroLightTheme.css").toExternalForm());
 		
-		//FlatterFX.style();
-		//ResponsiveHandler.addResponsiveToWindow(primaryStage);
+		primaryStage.setTitle("Administrative Panel");
 	}
 	
 	private void loadMenuBar(BorderPane parent) throws IOException {
@@ -54,9 +51,5 @@ public class Admin extends Application {
 
 	public void setAdminInterface(AdminInterface adminInterface) {
 		this.adminInterface = adminInterface;
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
 	}
 }

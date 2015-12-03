@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -9,7 +11,37 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="140.0" BorderPane.alignment="CENTER" />
+            <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="140.0" BorderPane.alignment="CENTER">
+               <children>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <left>
+                        <ImageView fx:id="imgvLogo" fitHeight="85.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@../images/logo.png" />
+                           </image>
+                           <BorderPane.margin>
+                              <Insets right="20.0" />
+                           </BorderPane.margin>
+                        </ImageView>
+                     </left>
+                     <center>
+                        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <StackPane prefHeight="100.0" prefWidth="124.0">
+                                 <children>
+                                    <Label fx:id="lblTitle" stylesheets="@../css/JMetroLightTheme.css" text="Apollo" />
+                                 </children>
+                              </StackPane>
+                              <StackPane alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="363.0">
+                                 <children>
+                                    <Label fx:id="lblSubTitle" prefHeight="35.0" prefWidth="277.0" stylesheets="@../css/JMetroLightTheme.css" text="Library Management System" />
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </HBox>
+                     </center>
+                  </BorderPane>
+               </children></StackPane>
          </top>
          <left>
             <TreeView fx:id="treeMenu" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
