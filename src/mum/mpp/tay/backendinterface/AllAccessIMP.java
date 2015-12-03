@@ -62,8 +62,8 @@ public class AllAccessIMP implements AllAccessInterface {
     }
 
     @Override
-    public boolean checkIn(String bookISBN, long memberId) throws ServiceException {
-        return libI.checkIn(bookISBN, memberId);
+    public CheckoutRecord checkIn(CheckoutRecord record, long memberId) throws ServiceException {
+        return libI.checkIn(record, memberId);
     }
 
     @Override
