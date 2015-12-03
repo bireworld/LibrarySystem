@@ -3,6 +3,8 @@ package mum.mpp.views;
 import java.util.Date;
 import java.util.List;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -26,6 +28,7 @@ import javafx.scene.text.FontBuilder;
 import javafx.scene.text.Text;
 import mum.mpp.tay.backendinterface.LibrarianInterface;
 import mum.mpp.tay.backendinterface.ServiceException;
+import mum.mpp.tay.entity.Author;
 import mum.mpp.tay.entity.Book;
 import mum.mpp.tay.entity.BookCopy;
 import mum.mpp.tay.entity.CheckoutRecord;
@@ -42,6 +45,7 @@ public class LibrarianOprationDetailController {
 	}
 
 	private ObservableList<CheckoutRecordVO> checkoutBooks = FXCollections.observableArrayList();
+	private ObservableList<SearchedBookVO> searchedBookVOs = FXCollections.observableArrayList();
 	private ObservableList<BookCopy> bookcopys = FXCollections.observableArrayList();
 	private CheckoutRecordVO bookDetail;
 
@@ -275,22 +279,18 @@ public class LibrarianOprationDetailController {
 		});
 
 		// onblur for member id
-		/*memberIdField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue,
-					Boolean newPropertyValue) {
-				if (!newPropertyValue)
-				// {
-				// System.out.println("Textfield on focus");
-				// }
-				// else
-				{
-					searchMemberInfo();
-				}
-			}
-		});*/
+		/*
+		 * memberIdField.focusedProperty().addListener(new
+		 * ChangeListener<Boolean>() {
+		 * 
+		 * @Override public void changed(ObservableValue<? extends Boolean>
+		 * arg0, Boolean oldPropertyValue, Boolean newPropertyValue) { if
+		 * (!newPropertyValue) // { // System.out.println("Textfield on focus");
+		 * // } // else { searchMemberInfo(); } } });
+		 */
 
-		//iSBNField.focusedProperty().addListener((observable, oldValue, newValue) -> bindISBNFieldEvent(newValue));
+		// iSBNField.focusedProperty().addListener((observable, oldValue,
+		// newValue) -> bindISBNFieldEvent(newValue));
 
 		iSBNField.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -305,8 +305,7 @@ public class LibrarianOprationDetailController {
 				}
 			}
 		});
-		
-		
+
 		// checkoutBtn.disableProperty().addListener(arg0);
 		checkoutBtn.setDisable(true);
 
@@ -350,9 +349,6 @@ public class LibrarianOprationDetailController {
 		checkoutBooksTable.getSelectionModel().select(selectedIndex);
 	}
 
-	private static final String styleHide = "-fx-skin: \"com.sun.javafx.scene.control.skin.ButtonSkin\"; -fx-base: gray; -fx-padding: 2; -fx-font-weight: bold; -fx-text-fill: #FFF; -fx-background-radius: 0 10 10 0;";
-	private static final String styleShow = "-fx-skin: \"com.sun.javafx.scene.control.skin.ButtonSkin\"; -fx-base: gray; -fx-padding: 2; -fx-font-weight: bold; -fx-text-fill: #FFF; -fx-background-radius: 10 0 0 10;";
-
 	Node componentsPane;
 	boolean isCheckInShow = true;
 
@@ -386,6 +382,36 @@ public class LibrarianOprationDetailController {
 					mainSplitPane.getItems().remove(componentsPane);
 					isCheckInShow = false;
 				}
+			}
+		});
+
+		searchBookNameField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				System.out.println("Search");
+				List<Book> books;
+				try {
+					books = user.getBookByName(newValue);
+					for (Book b : books) {
+						SimpleStringProperty authorsName = new SimpleStringProperty();
+						String names = "";
+						for (Author a : b.getAuthors()) {
+							names += a.getFirstName() + " " + a.getLastName() + " ,";
+						}
+						authorsName.set(names);
+						SearchedBookVO bookVO = new SearchedBookVO(new SimpleStringProperty(b.getiSBNNumber()),
+								new SimpleStringProperty(b.getTitle()), authorsName,
+								new SimpleIntegerProperty(b.getMaximumCheckoutDurationInDays()), null);
+						searchedBookVOs.add(bookVO);
+					}
+
+					searchedBookTable.setItems(searchedBookVOs);
+
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 		});
 	}

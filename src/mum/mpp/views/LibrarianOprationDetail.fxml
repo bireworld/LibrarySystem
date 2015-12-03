@@ -164,13 +164,12 @@
 							<columnResizePolicy>
 								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 							</columnResizePolicy>
+
 							<columns>
-								<TableColumn fx:id="firstColumn" prefWidth="75.0"
-									text="ISBN" />
-								<TableColumn fx:id="secondColumn" prefWidth="75.0"
-									text="Copy No" />
-								<TableColumn fx:id="thirdColumn" prefWidth="75.0"
-									text="Due Date" />
+								<TableColumn fx:id="iSBNNumber" prefWidth="75.0" text="ISBN" />
+								<TableColumn fx:id="title" prefWidth="75.0" text="Title" />
+								<TableColumn fx:id="authors" prefWidth="75.0" text="Authors" />
+								<TableColumn fx:id="maximumCheckoutDurationInDays" prefWidth="75.0" text="Borrow days" />
 							</columns>
 						</TableView>
 
