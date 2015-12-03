@@ -10,11 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import mum.mpp.beans.EditLibrarianSearchBean;
 import mum.mpp.beans.EditMemberSearchBean;
 import mum.mpp.tay.backendinterface.AdminInterface;
 import mum.mpp.tay.backendinterface.ServiceException;
-import mum.mpp.tay.entity.CheckoutRecord;
+import mum.mpp.tay.entity.AuthorizationLevel;
 import mum.mpp.tay.entity.Member;
+import mum.mpp.tay.entity.Staff;
 
 public class HomePageController {
 	@FXML
@@ -38,9 +40,22 @@ public class HomePageController {
 	@FXML
 	private TableColumn tblcNumBooksTaken;
 	
+	@FXML
+	private TableColumn tblcLibsStaffId;
+	
+	@FXML
+	private TableColumn tblcLibsFirstName;
+	
+	@FXML
+	private TableColumn tblcLibsLastName;
+	
+	@FXML
+	private TableColumn tblcLibsPhone;
+	
 	private AdminInterface adminInterface;
 	
 	private ObservableList<EditMemberSearchBean> allMembersList;
+	private ObservableList<EditLibrarianSearchBean> allStaffList;
 	
 	@FXML
 	public void initialize() {
@@ -58,6 +73,11 @@ public class HomePageController {
 		tblcMemLastName.setCellValueFactory(new PropertyValueFactory<EditMemberSearchBean, String>("lastName"));
 		tblcMemPhone.setCellValueFactory(new PropertyValueFactory<EditMemberSearchBean, String>("phone"));
 		tblcNumBooksTaken.setCellValueFactory(new PropertyValueFactory<EditMemberSearchBean, String>("numBooks"));
+		
+		tblcLibsStaffId.setCellValueFactory(new PropertyValueFactory<EditLibrarianSearchBean, String>("staffId"));
+		tblcLibsFirstName.setCellValueFactory(new PropertyValueFactory<EditLibrarianSearchBean, String>("firstName"));
+		tblcLibsLastName.setCellValueFactory(new PropertyValueFactory<EditLibrarianSearchBean, String>("lastName"));
+		tblcLibsPhone.setCellValueFactory(new PropertyValueFactory<EditLibrarianSearchBean, String>("phone"));
 	}
 	
 	private void startDataLoadThread() {
@@ -66,16 +86,17 @@ public class HomePageController {
 			@Override
 			public void run() {
 				new Thread(() -> {
-					loadData();
+					loadDataMember();
+					loadDataLibrarian();
 				}).start();
 			}
 		};
 		timer.schedule(task, 2000);
 	}
 	
-	private void loadData() {
+	private void loadDataMember() {
 		allMembersList = FXCollections.observableArrayList();
-		List<Member> memberList = searchData();
+		List<Member> memberList = searchDataMember();
 		if(memberList!=null) {
 			for (Member member : memberList) {
 				allMembersList.add(new EditMemberSearchBean(member.getUniqueMemberNumber(), member.getFirstName(),
@@ -93,12 +114,40 @@ public class HomePageController {
 		}
 	}
 	
+	private void loadDataLibrarian() {
+		allStaffList = FXCollections.observableArrayList();
+		List<Staff> staffList = searchDataLibrarian();
+		if(staffList!=null) {
+			for (Staff staff : staffList) {
+				if(staff.getRole()==AuthorizationLevel.LIBRARIAN)
+					allStaffList.add(new EditLibrarianSearchBean(staff.getUniqueStaffId(), staff.getFirstName(),
+						staff.getLastName(), staff.getPhoneNumber(), staff.getAddress().getStreet(),
+						staff.getAddress().getCity(), staff.getAddress().getState(), staff.getAddress().getZip(),
+						staff.getRole()));
+				
+			}
+			
+			tblvLibrarians.setItems(allStaffList);
+		}
+	}
 	
-	private List<Member> searchData() {
+	
+	private List<Member> searchDataMember() {
 		List<Member> allMemberList=null;
 		try {
 			System.out.println(adminInterface);
 			allMemberList = adminInterface.getAllMembers();
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return allMemberList;
+	}
+	
+	private List<Staff> searchDataLibrarian() {
+		List<Staff> allMemberList=null;
+		try {
+			System.out.println(adminInterface);
+			allMemberList = adminInterface.getAllStaff();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

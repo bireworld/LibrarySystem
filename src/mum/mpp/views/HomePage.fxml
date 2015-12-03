@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="333.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mum.mpp.views.HomePageController">
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="974.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mum.mpp.views.HomePageController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="321.0" prefWidth="557.0">
          <center>
@@ -24,10 +23,12 @@
       <Separator orientation="VERTICAL" prefHeight="321.0" prefWidth="28.0" />
       <BorderPane prefHeight="321.0" prefWidth="383.0">
          <center>
-            <TableView prefHeight="321.0" prefWidth="459.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tblvLibrarians" prefHeight="321.0" prefWidth="459.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="tblcLibsStaffId" prefWidth="75.0" text="Staff ID" />
+                <TableColumn fx:id="tblcLibsFirstName" prefWidth="96.0" text="First Name" />
+                  <TableColumn fx:id="tblcLibsLastName" prefWidth="106.0" text="Last Name" />
+                  <TableColumn fx:id="tblcLibsPhone" prefWidth="105.0" text="Phone" />
               </columns>
             </TableView>
          </center>
