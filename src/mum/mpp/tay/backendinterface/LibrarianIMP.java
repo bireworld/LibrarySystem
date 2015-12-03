@@ -38,11 +38,12 @@ public class LibrarianIMP implements LibrarianInterface {
     }
 
     @Override
-    public CheckoutRecord checkIn(CheckoutRecord record, long memberId) throws ServiceException {
+    public CheckoutRecord checkIn(long recordId) throws ServiceException {
         try {
             
             // update record
             CheckoutRecordJpaController recordController = new CheckoutRecordJpaController(emf);
+            CheckoutRecord record = recordController.findCheckoutRecord(recordId);
             record.getBook().setBorrowed(false);
             record.setCheckinDate(new Date());
             recordController.edit(record);
@@ -130,7 +131,7 @@ public class LibrarianIMP implements LibrarianInterface {
     }
 
     @Override
-    public Book getBookByName(String name) throws ServiceException {
+    public List<Book> getBookByName(String name) throws ServiceException {
         try {
             BookJpaController bC = new BookJpaController(emf);
             return bC.findByTitle(name);
