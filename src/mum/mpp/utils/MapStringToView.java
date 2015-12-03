@@ -13,6 +13,8 @@ public class MapStringToView {
 		viewMap.put("Edit Staff", "EditStaff.fxml");
 		viewMap.put("New Member", "AddMember.fxml");
 		viewMap.put("Edit Member", "EditMember.fxml");
+		viewMap.put("Add Book", "AddBook.fxml");
+		viewMap.put("Add Book Copy", "AddBookCopy.fxml");
 	}
 	
 	static Map<String,ActionType> actionTypeMap = new HashMap<>();
@@ -22,6 +24,8 @@ public class MapStringToView {
 		actionTypeMap.put("Edit Staff", ActionType.EDIT_STAFF);
 		actionTypeMap.put("New Member", ActionType.ADD_MEMBER);
 		actionTypeMap.put("Edit Member", ActionType.EDIT_MEMBER);
+		actionTypeMap.put("Add Book", ActionType.ADD_BOOK);
+		actionTypeMap.put("Add Book Copy", ActionType.ADD_BOOK_COPY);
 	}
 	
 	static Map<ActionType, String> titleMap = new HashMap<>();
