@@ -71,9 +71,13 @@ public class LibrarianOprationDetailController {
     private Text ISBNErrMsg;
 	@FXML
     private Button checkoutBtn;
+	@FXML
+	private Button checkinBtn;
     
     private boolean memberIdValid = false;
     private boolean isbnNoValid = false;
+    private int selectedIndex = -1;
+    private BookVo selectedRow = null;
     
 	public void searchMemberInfo() {
 		
@@ -110,7 +114,7 @@ public class LibrarianOprationDetailController {
 					List<CheckoutRecord> memberRecord = user.getMemberRecord(id);
 					for(CheckoutRecord checkoutRecord: memberRecord){
 						Book book = checkoutRecord.getBook().getBook();
-						BookVo bookVo = new BookVo(book.getiSBNNumber(),
+						BookVo bookVo = new BookVo(checkoutRecord.getId(), book.getiSBNNumber(),
 								book.getTitle(), book.getMaximumCheckoutDurationInDays(), checkoutRecord.getBook().getCopyNumber(),
 								checkoutRecord.getCheckoutDate(), checkoutRecord.getDueDate(), checkoutRecord.getCheckinDate());
 						
@@ -198,6 +202,11 @@ public class LibrarianOprationDetailController {
 	}	
 	
     private void showChkOutRecordsDetails(BookVo book) {
+    	int newIndex = checkoutBooksTable.getSelectionModel().getSelectedIndex();
+    	if(newIndex != -1)
+    		selectedIndex = newIndex;
+    	if(null != checkoutBooksTable.getSelectionModel().getSelectedItem())
+    		selectedRow = checkoutBooksTable.getSelectionModel().getSelectedItem();
         if (book != null) {
             // Fill the labels with info from the book object.
 
@@ -207,7 +216,14 @@ public class LibrarianOprationDetailController {
         	copyNumberLabel.setText(String.valueOf(book.getCopyNumber().get()));
         	checkoutDate.setText(book.getCheckoutDate().get().toString());
         	dueDate.setText(book.getDueDate().get().toString());
-        	checkinDate.setText(book.getCheckinDate().get() == null?"":book.getCheckinDate().get().toString());
+        	Object object = book.getCheckinDate().get();
+        	if(null == object){
+        		checkinBtn.setVisible(true);
+        		checkinDate.setText("");
+        	}else{
+        		checkinDate.setText(object.toString());
+        	}
+			
 
         } else {
             // Person is null, remove all the text.
@@ -246,6 +262,7 @@ public class LibrarianOprationDetailController {
         });
         
         iSBNField.focusedProperty().addListener((observable, oldValue, newValue) -> bindISBNFieldEvent(newValue));
+        
 //        checkoutBtn.disableProperty().addListener(arg0);
         checkoutBtn.setDisable(true);
     }
@@ -270,8 +287,27 @@ public class LibrarianOprationDetailController {
 		iSBNField.setText("");
 		checkoutBtn.setDisable(true);
 		initISBNEnv();
+	}
+	
+	@FXML
+	public void btnCheckin_click() {
+		System.out.println("btnCheckin_click");
+		if(null == checkinDate.getText() || "".equalsIgnoreCase(checkinDate.getText())){
+			try {
+//				checkoutBooksTable.getSelectionModel().getSelectedItem()
+				user.checkIn(selectedRow.getId());
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		searchMemberInfo();
+//		bindISBNFieldEvent(false);
 		
-//		System.out.println("btnLogin_click");
+		checkoutBooksTable.getSelectionModel().select(selectedIndex);
 	}
 
 }

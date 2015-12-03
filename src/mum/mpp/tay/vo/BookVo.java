@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class BookVo {
+	private long id;
     private StringProperty iSBNNumber;
     private StringProperty title;
     private IntegerProperty maximumCheckoutDurationInDays;
@@ -29,9 +30,10 @@ public class BookVo {
 		this.maximumCheckoutDurationInDays = new SimpleIntegerProperty(maximumCheckoutDurationInDays);
 	}
 	
-	public BookVo(String iSBNNumber, String title, Integer maximumCheckoutDurationInDays,
+	public BookVo(Long id, String iSBNNumber, String title, Integer maximumCheckoutDurationInDays,
 			Long copyNumber, Date checkoutDate, Date dueDate, Date checkinDate) {
 		super();
+		this.id = id;
 		this.iSBNNumber = new SimpleStringProperty(iSBNNumber);
 		this.title = new SimpleStringProperty(title);
 		this.maximumCheckoutDurationInDays = new SimpleIntegerProperty(maximumCheckoutDurationInDays);
@@ -63,6 +65,9 @@ public class BookVo {
 	}
 	public ObjectProperty getCheckinDate() {
 		return checkinDate;
+	}
+	public long getId() {
+		return id;
 	}
 
     
