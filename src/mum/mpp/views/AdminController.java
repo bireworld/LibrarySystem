@@ -130,6 +130,8 @@ public class AdminController {
 		if(actionType!=ActionType.HOME) {
 			BorderPane root = (BorderPane)loader.load();
 			contentArea.setCenter(root);
+			
+			contentArea.setTop(null);
 		} else {
 			FlowPane root = (FlowPane)loader.load();
 			contentArea.setCenter(root);

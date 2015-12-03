@@ -30,10 +30,10 @@
       <Label text="Username" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label text="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <TextField fx:id="txtfUsername" prefHeight="6.0" prefWidth="199.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <PasswordField fx:id="pswfPassword" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <PasswordField fx:id="pswfPassword" onKeyPressed="#onHitEnter" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <children>
-            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#btnLogin_click" text="Sign In" />
+            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#btnLogin_click" onKeyPressed="#onHitEnter" text="Sign In" />
          </children>
       </HBox>
    </children>

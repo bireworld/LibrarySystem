@@ -35,12 +35,12 @@ public class EditMemberSearchBean {
 		this.zip = new SimpleStringProperty(zip);
 		this.checkoutRecList = checkoutRecList;
 		
-		if(checkoutRecList!=null) {
-			this.numBooks = new SimpleLongProperty(checkoutRecList.stream()
-									.filter(c->{
-										return (c.getCheckoutDate()!=null);
-									}).map(m->m.getId()).count());
-		}
+		long count = 0;
+		for(CheckoutRecord c : checkoutRecList) 
+			if(c.getCheckinDate()==null) count++;
+		
+		this.numBooks = new SimpleLongProperty(count);
+		
 	}
 	public long getMemberId() {
 		return memberId.get();
@@ -100,12 +100,9 @@ public class EditMemberSearchBean {
 	}
 	
 	public long getNumBooks() {
-		if(checkoutRecList!=null) {
-			this.numBooks = new SimpleLongProperty(checkoutRecList.stream()
-									.filter(c->{
-										return (c.getCheckoutDate()!=null);
-									}).map(m->m.getId()).count());
-		}
+		long count = 0;
+		for(CheckoutRecord c : checkoutRecList) 
+			if(c.getCheckinDate()==null) count++;
 		return this.numBooks.get();
 	}
 	public Member getMember() {
@@ -124,6 +121,6 @@ public class EditMemberSearchBean {
 	public String toString() {
 		return "EditMemberSearchBean [memberId=" + memberId + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", phone=" + phone + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip
-				+ "]";
+				+ ", checkoutRecList=" + checkoutRecList + ", numBooks=" + numBooks + "]";
 	}
 }

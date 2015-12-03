@@ -1,10 +1,12 @@
 package mum.mpp.views;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import mum.mpp.Admin;
 import mum.mpp.Main;
@@ -99,6 +101,12 @@ public class LoginController {
 		} catch (ServiceException e1) {
 			DialogUtil.showDialog("Login Error!", "Username/Password doesn't match.", "Please try signin again.", AlertType.ERROR);
 		}
+	}
+	
+	@FXML
+	public void onHitEnter(KeyEvent e) {
+		if(e.getCode()==KeyCode.ENTER)
+			btnLogin_click();
 	}
 
 }
