@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class BookVo {
+public class CheckoutRecordVO {
 	private long id;
     private StringProperty iSBNNumber;
     private StringProperty title;
@@ -23,14 +23,14 @@ public class BookVo {
 	public StringProperty getiSBNNumber() {
 		return iSBNNumber;
 	}
-	public BookVo(String iSBNNumber, String title, Integer maximumCheckoutDurationInDays) {
+	public CheckoutRecordVO(String iSBNNumber, String title, Integer maximumCheckoutDurationInDays) {
 		super();
 		this.iSBNNumber = new SimpleStringProperty(iSBNNumber);
 		this.title = new SimpleStringProperty(title);
 		this.maximumCheckoutDurationInDays = new SimpleIntegerProperty(maximumCheckoutDurationInDays);
 	}
 	
-	public BookVo(Long id, String iSBNNumber, String title, Integer maximumCheckoutDurationInDays,
+	public CheckoutRecordVO(Long id, String iSBNNumber, String title, Integer maximumCheckoutDurationInDays,
 			Long copyNumber, Date checkoutDate, Date dueDate, Date checkinDate) {
 		super();
 		this.id = id;

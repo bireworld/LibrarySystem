@@ -7,9 +7,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -23,7 +30,9 @@ import mum.mpp.tay.entity.Book;
 import mum.mpp.tay.entity.BookCopy;
 import mum.mpp.tay.entity.CheckoutRecord;
 import mum.mpp.tay.entity.Member;
-import mum.mpp.tay.vo.BookVo;
+import mum.mpp.tay.vo.CheckoutRecordVO;
+import mum.mpp.tay.vo.SearchedBookVO;
+import mum.mpp.utils.DialogUtil;
 
 public class LibrarianOprationDetailController {
 	private LibrarianInterface user;
@@ -31,150 +40,158 @@ public class LibrarianOprationDetailController {
 	public void setUser(LibrarianInterface user) {
 		this.user = user;
 	}
-	private ObservableList<BookVo> checkoutBooks = FXCollections.observableArrayList();
+
+	private ObservableList<CheckoutRecordVO> checkoutBooks = FXCollections.observableArrayList();
 	private ObservableList<BookCopy> bookcopys = FXCollections.observableArrayList();
-	private BookVo bookDetail;
+	private CheckoutRecordVO bookDetail;
 
 	@FXML
-	private TableView<BookVo> checkoutBooksTable;
+	private TableView<CheckoutRecordVO> checkoutBooksTable;
 	@FXML
-	private TableColumn<BookVo, String> firstColumn;
+	private TableColumn<CheckoutRecordVO, String> firstColumn;
 	@FXML
-	private TableColumn<BookVo, Number> secondColumn;
+	private TableColumn<CheckoutRecordVO, Number> secondColumn;
 	@FXML
-	private TableColumn<BookVo, Date> thirdColumn;
+	private TableColumn<CheckoutRecordVO, Date> thirdColumn;
 	@FXML
-    private Label isbnNumberLabel;
-    @FXML
-    private Label titleLabel;
-    @FXML
-    private Label keepDaysLabel;
-    @FXML
-    private Label copyNumberLabel;
-    @FXML
-    private Label checkoutDate;
-    @FXML
-    private Label dueDate;
-    @FXML
-    private Label checkinDate;
-//    book.getiSBNNumber(),
-//	book.getTitle(), book.getMaximumCheckoutDurationInDays(), checkoutRecord.getBook().getCopyNumber(),
-//	checkoutRecord.getCheckoutDate(), checkoutRecord.getDueDate(), checkoutRecord.getCheckinDate());
-    @FXML
-    private TextField memberIdField;
-    @FXML
-    private TextField iSBNField;
-    
-    @FXML
-    private Text memberErrMsg;
-    @FXML
-    private Text ISBNErrMsg;
+	private Label isbnNumberLabel;
 	@FXML
-    private Button checkoutBtn;
+	private Label titleLabel;
+	@FXML
+	private Label keepDaysLabel;
+	@FXML
+	private Label copyNumberLabel;
+	@FXML
+	private Label checkoutDate;
+	@FXML
+	private Label dueDate;
+	@FXML
+	private Label checkinDate;
+	// book.getiSBNNumber(),
+	// book.getTitle(), book.getMaximumCheckoutDurationInDays(),
+	// checkoutRecord.getBook().getCopyNumber(),
+	// checkoutRecord.getCheckoutDate(), checkoutRecord.getDueDate(),
+	// checkoutRecord.getCheckinDate());
+	@FXML
+	private TextField memberIdField;
+	@FXML
+	private TextField iSBNField;
+	@FXML
+	private TextField searchBookNameField;
+	@FXML
+	private Button searchBookNameButton;
+
+	@FXML
+	private Text memberErrMsg;
+	@FXML
+	private Text ISBNErrMsg;
+	@FXML
+	private Button checkoutBtn;
 	@FXML
 	private Button checkinBtn;
-    
-    private boolean memberIdValid = false;
-    private boolean isbnNoValid = false;
-    private int selectedIndex = -1;
-    private BookVo selectedRow = null;
-    
+
+	private boolean memberIdValid = false;
+	private boolean isbnNoValid = false;
+	private int selectedIndex = -1;
+	private CheckoutRecordVO selectedRow = null;
+
 	public void searchMemberInfo() {
-		
+		System.out.println("searchMemberInfo");
 		initChkoutRecordEnv();
-		
-		//validate
+
+		// validate
 		String memberId = memberIdField.getText();
-		if(null == memberId || "".equals(memberId)){
+		if (null == memberId || "".equals(memberId)) {
 			memberErrMsg.setText("Empty imput");
 			memberErrMsg.setFill(Color.RED);
 			return;
-		}else{
-			try{
+		} else {
+			try {
 
 				Long id = Long.valueOf(memberId);
-				
-				//TODO remove mock
+
+				// TODO remove mock
 				Member libMember = user.getMemberById(id);
-				
-				if(null == libMember){
+
+				if (null == libMember) {
 					memberErrMsg.setText("Can not find by that ID");
 					memberErrMsg.setFill(Color.RED);
 					return;
-				}else{
-//					System.out.println("btnLogin_click2");
-//					checkoutBooks.add(new BookVo("1", "1", 1));
-//					checkoutBooks.add(new BookVo("2", "2", 2));
+				} else {
+					// System.out.println("btnLogin_click2");
+					// checkoutBooks.add(new BookVo("1", "1", 1));
+					// checkoutBooks.add(new BookVo("2", "2", 2));
 					memberErrMsg.setText("Valid");
 					memberErrMsg.setFill(Color.GREEN);
 					memberIdValid = true;
-					if(isbnNoValid)
+					if (isbnNoValid)
 						checkoutBtn.setDisable(false);
-					
+
 					List<CheckoutRecord> memberRecord = user.getMemberRecord(id);
-					for(CheckoutRecord checkoutRecord: memberRecord){
+					for (CheckoutRecord checkoutRecord : memberRecord) {
 						Book book = checkoutRecord.getBook().getBook();
-						BookVo bookVo = new BookVo(checkoutRecord.getId(), book.getiSBNNumber(),
-								book.getTitle(), book.getMaximumCheckoutDurationInDays(), checkoutRecord.getBook().getCopyNumber(),
-								checkoutRecord.getCheckoutDate(), checkoutRecord.getDueDate(), checkoutRecord.getCheckinDate());
-						
+						CheckoutRecordVO bookVo = new CheckoutRecordVO(checkoutRecord.getId(), book.getiSBNNumber(),
+								book.getTitle(), book.getMaximumCheckoutDurationInDays(),
+								checkoutRecord.getBook().getCopyNumber(), checkoutRecord.getCheckoutDate(),
+								checkoutRecord.getDueDate(), checkoutRecord.getCheckinDate());
+
 						checkoutBooks.add(bookVo);
-						
+
 					}
 
-			        // Add observable list data to the table
+					// Add observable list data to the table
 					checkoutBooksTable.setItems(checkoutBooks);
-					
-			        firstColumn.setCellValueFactory(cellData -> cellData.getValue().getiSBNNumber());
-			        secondColumn.setCellValueFactory(cellData -> cellData.getValue().getCopyNumber());
-			        thirdColumn.setCellValueFactory(cellData -> cellData.getValue().getDueDate());
+
+					firstColumn.setCellValueFactory(cellData -> cellData.getValue().getiSBNNumber());
+					secondColumn.setCellValueFactory(cellData -> cellData.getValue().getCopyNumber());
+					thirdColumn.setCellValueFactory(cellData -> cellData.getValue().getDueDate());
 				}
 			} catch (ServiceException e) {
 				memberErrMsg.setText(e.getMessage());
 				memberErrMsg.setFill(Color.RED);
 				return;
-			} catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 				memberErrMsg.setText("Pls input a number!");
 				memberErrMsg.setFill(Color.RED);
 				return;
 			}
-			
+
 		}
-		
-		
+
 	}
 
 	private void initChkoutRecordEnv() {
-		//clear err msg
+		// clear err msg
 		memberErrMsg.setText("");
 		memberErrMsg.setFill(Color.BLACK);
-		//clear Data
+		// clear Data
 		checkoutBooks.clear();
-		//reset state
+		// reset state
 		memberIdValid = false;
 	}
-	
+
 	private void bindISBNFieldEvent(Boolean newValue) {
-		if(!newValue){
+		System.out.println("bindISBNFieldEvent" + newValue);
+		if (!newValue) {
 			initISBNEnv();
-			
-			//validate
+
+			// validate
 			String iSBNNo = iSBNField.getText();
-			if(null == iSBNNo || "".equals(iSBNNo)){
+			if (null == iSBNNo || "".equals(iSBNNo)) {
 				ISBNErrMsg.setText("Empty imput");
 				ISBNErrMsg.setFill(Color.RED);
 				return;
-			} else{
+			} else {
 				try {
 					boolean bookAvailable = user.isBookAvailable(iSBNNo);
-					if(bookAvailable){
+					if (bookAvailable) {
 						isbnNoValid = true;
-						if(memberIdValid)
+						if (memberIdValid)
 							checkoutBtn.setDisable(false);
 						ISBNErrMsg.setText("Available");
 						ISBNErrMsg.setFill(Color.GREEN);
-					}else{
+					} else {
 						ISBNErrMsg.setText("Not available");
 						ISBNErrMsg.setFill(Color.YELLOW);
 					}
@@ -187,91 +204,196 @@ public class LibrarianOprationDetailController {
 			}
 		}
 
-//		return null;
+		// return null;
 	}
-	
+
 	private void initISBNEnv() {
-		//clear err msg
+		// clear err msg
 		ISBNErrMsg.setText("");
 		ISBNErrMsg.setFill(Color.BLACK);
-//		//clear Data
-//		checkoutBooks.clear();
-		//reset state
+		// //clear Data
+		// checkoutBooks.clear();
+		// reset state
 		isbnNoValid = false;
 
-	}	
-	
-    private void showChkOutRecordsDetails(BookVo book) {
-    	int newIndex = checkoutBooksTable.getSelectionModel().getSelectedIndex();
-    	if(newIndex != -1)
-    		selectedIndex = newIndex;
-    	if(null != checkoutBooksTable.getSelectionModel().getSelectedItem())
-    		selectedRow = checkoutBooksTable.getSelectionModel().getSelectedItem();
-        if (book != null) {
-            // Fill the labels with info from the book object.
+	}
 
-        	isbnNumberLabel.setText(book.getiSBNNumber().get());
-        	titleLabel.setText(book.getTitle().get());
-        	keepDaysLabel.setText(String.valueOf(book.getMaximumCheckoutDurationInDays().get()));
-        	copyNumberLabel.setText(String.valueOf(book.getCopyNumber().get()));
-        	checkoutDate.setText(book.getCheckoutDate().get().toString());
-        	dueDate.setText(book.getDueDate().get().toString());
-        	Object object = book.getCheckinDate().get();
-        	if(null == object){
-        		checkinBtn.setVisible(true);
-        		checkinDate.setText("");
-        	}else{
-        		checkinDate.setText(object.toString());
-        	}
-			
+	private void showChkOutRecordsDetails(CheckoutRecordVO book) {
+		int newIndex = checkoutBooksTable.getSelectionModel().getSelectedIndex();
+		if (newIndex != -1)
+			selectedIndex = newIndex;
+		if (null != checkoutBooksTable.getSelectionModel().getSelectedItem())
+			selectedRow = checkoutBooksTable.getSelectionModel().getSelectedItem();
+		if (book != null) {
+			// Fill the labels with info from the book object.
 
-        } else {
-            // Person is null, remove all the text.
-        	isbnNumberLabel.setText("");
-        	titleLabel.setText("");
-        	keepDaysLabel.setText("");
-        	copyNumberLabel.setText("");
-        	checkoutDate.setText("");
-        	dueDate.setText("");
-        	checkinDate.setText("");
-        }
-    }
-    
+			isbnNumberLabel.setText(book.getiSBNNumber().get());
+			titleLabel.setText(book.getTitle().get());
+			keepDaysLabel.setText(String.valueOf(book.getMaximumCheckoutDurationInDays().get()));
+			copyNumberLabel.setText(String.valueOf(book.getCopyNumber().get()));
+			checkoutDate.setText(book.getCheckoutDate().get().toString());
+			dueDate.setText(book.getDueDate().get().toString());
+			Object object = book.getCheckinDate().get();
+			if (null == object) {
+				checkinBtn.setVisible(true);
+				checkinDate.setText("");
+			} else {
+				checkinDate.setText(object.toString());
+			}
 
-    @FXML
-    private void initialize() {
-        // Listen for selection changes and show the person details when changed.
-    	checkoutBooksTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showChkOutRecordsDetails(newValue));
-    	
-    	//onblur for member id
-        memberIdField.focusedProperty().addListener(new ChangeListener<Boolean>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
-            {
-                if (!newPropertyValue)
-//                {
-//                    System.out.println("Textfield on focus");
-//                }
-//                else
-                {
-                	searchMemberInfo();
-                }
-            }
-        });
-        
-        iSBNField.focusedProperty().addListener((observable, oldValue, newValue) -> bindISBNFieldEvent(newValue));
-        
-//        checkoutBtn.disableProperty().addListener(arg0);
-        checkoutBtn.setDisable(true);
-    }
+		} else {
+			// Person is null, remove all the text.
+			isbnNumberLabel.setText("");
+			titleLabel.setText("");
+			keepDaysLabel.setText("");
+			copyNumberLabel.setText("");
+			checkoutDate.setText("");
+			dueDate.setText("");
+			checkinDate.setText("");
+		}
+	}
 
+	@FXML
+	private void initialize() {
+		// Listen for selection changes and show the person details when
+		// changed.
+		checkoutBooksTable.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> showChkOutRecordsDetails(newValue));
 
+		memberIdField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.isEmpty())
+				// {
+				// System.out.println("Textfield on focus");
+				// }
+				// else
+				{
+					searchMemberInfo();
+				}
+			}
+		});
+
+		// onblur for member id
+		/*memberIdField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue,
+					Boolean newPropertyValue) {
+				if (!newPropertyValue)
+				// {
+				// System.out.println("Textfield on focus");
+				// }
+				// else
+				{
+					searchMemberInfo();
+				}
+			}
+		});*/
+
+		//iSBNField.focusedProperty().addListener((observable, oldValue, newValue) -> bindISBNFieldEvent(newValue));
+
+		iSBNField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.isEmpty())
+				// {
+				// System.out.println("Textfield on focus");
+				// }
+				// else
+				{
+					bindISBNFieldEvent(true);
+				}
+			}
+		});
+		
+		
+		// checkoutBtn.disableProperty().addListener(arg0);
+		checkoutBtn.setDisable(true);
+
+		makeItdynamic();
+
+	}
 
 	@FXML
 	public void btnCheckout_click() {
-		if(memberIdValid && isbnNoValid){
+		if (!searchBookNameField.getText().isEmpty()) {
+			DialogUtil.showDialog("Enter Something", "", "Please enter whole are part of book name", AlertType.WARNING);
+			return;
+		}
+		String inputName = searchBookNameField.getText();
+
+		try {
+			user.getBookByName(inputName);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void btnCheckin_click() {
+		System.out.println("btnCheckin_click");
+		if (null == checkinDate.getText() || "".equalsIgnoreCase(checkinDate.getText())) {
+			try {
+				// checkoutBooksTable.getSelectionModel().getSelectedItem()
+				user.checkIn(selectedRow.getId());
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		searchMemberInfo();
+		// bindISBNFieldEvent(false);
+
+		checkoutBooksTable.getSelectionModel().select(selectedIndex);
+	}
+
+	private static final String styleHide = "-fx-skin: \"com.sun.javafx.scene.control.skin.ButtonSkin\"; -fx-base: gray; -fx-padding: 2; -fx-font-weight: bold; -fx-text-fill: #FFF; -fx-background-radius: 0 10 10 0;";
+	private static final String styleShow = "-fx-skin: \"com.sun.javafx.scene.control.skin.ButtonSkin\"; -fx-base: gray; -fx-padding: 2; -fx-font-weight: bold; -fx-text-fill: #FFF; -fx-background-radius: 10 0 0 10;";
+
+	Node componentsPane;
+	boolean isCheckInShow = true;
+
+	private void makeItdynamic() {
+
+		componentsPane = mainSplitPane.getItems().get(2);
+
+		checkoutHeaderAnchorPane.setOnMouseEntered(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				workSpaceLable.setText("Checkout Records");
+				searchedBookAnchor.setVisible(false);
+
+				if (!isCheckInShow) {
+					mainSplitPane.getItems().add(2, componentsPane);
+					isCheckInShow = true;
+				}
+
+			}
+		});
+
+		searchBookHeaderAnchorPane.setOnMouseEntered(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+
+				workSpaceLable.setText("Searched Books");
+				searchedBookAnchor.setVisible(true);
+				if (isCheckInShow) {
+					mainSplitPane.getItems().remove(componentsPane);
+					isCheckInShow = false;
+				}
+			}
+		});
+	}
+
+	@FXML
+	public void btnSearchBook_click() {
+
+		if (memberIdValid && isbnNoValid) {
 			try {
 				user.checkout(iSBNField.getText(), Long.valueOf(memberIdField.getText()));
 			} catch (ServiceException e) {
@@ -283,31 +405,28 @@ public class LibrarianOprationDetailController {
 			}
 		}
 		searchMemberInfo();
-		
+
 		iSBNField.setText("");
 		checkoutBtn.setDisable(true);
 		initISBNEnv();
 	}
-	
-	@FXML
-	public void btnCheckin_click() {
-		System.out.println("btnCheckin_click");
-		if(null == checkinDate.getText() || "".equalsIgnoreCase(checkinDate.getText())){
-			try {
-//				checkoutBooksTable.getSelectionModel().getSelectedItem()
-				user.checkIn(selectedRow.getId());
-			} catch (ServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		searchMemberInfo();
-//		bindISBNFieldEvent(false);
-		
-		checkoutBooksTable.getSelectionModel().select(selectedIndex);
-	}
 
+	@FXML
+	private TableView<SearchedBookVO> searchedBookTable;
+
+	@FXML
+	private SplitPane mainSplitPane;
+
+	@FXML
+	private AnchorPane searchBookHeaderAnchorPane;
+	@FXML
+	private AnchorPane checkoutHeaderAnchorPane;
+
+	@FXML
+	private Label workSpaceLable;
+
+	@FXML
+	private AnchorPane checkOutAnchor;
+	@FXML
+	private AnchorPane searchedBookAnchor;
 }
