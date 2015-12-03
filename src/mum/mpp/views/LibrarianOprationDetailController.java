@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -68,6 +69,11 @@ public class LibrarianOprationDetailController {
     private Text memberErrMsg;
     @FXML
     private Text ISBNErrMsg;
+	@FXML
+    private Button checkoutBtn;
+    
+    private boolean memberIdValid = false;
+    private boolean isbnNoValid = false;
     
 	public void searchMemberInfo() {
 		
@@ -96,6 +102,9 @@ public class LibrarianOprationDetailController {
 //					checkoutBooks.add(new BookVo("2", "2", 2));
 					memberErrMsg.setText("Valid");
 					memberErrMsg.setFill(Color.GREEN);
+					memberIdValid = true;
+					if(isbnNoValid)
+						checkoutBtn.setDisable(false);
 					
 					List<CheckoutRecord> memberRecord = user.getMemberRecord(id);
 					for(CheckoutRecord checkoutRecord: memberRecord){
@@ -137,6 +146,8 @@ public class LibrarianOprationDetailController {
 		memberErrMsg.setFill(Color.BLACK);
 		//clear Data
 		checkoutBooks.clear();
+		//reset state
+		memberIdValid = false;
 	}
 	
 	private void bindISBNFieldEvent(Boolean newValue) {
@@ -152,7 +163,9 @@ public class LibrarianOprationDetailController {
 				try {
 					boolean bookAvailable = user.isBookAvailable(iSBNNo);
 					if(bookAvailable){
-						
+						isbnNoValid = true;
+						if(memberIdValid)
+							checkoutBtn.setDisable(false);
 						ISBNErrMsg.setText("Available");
 						ISBNErrMsg.setFill(Color.GREEN);
 					}else{
@@ -176,6 +189,8 @@ public class LibrarianOprationDetailController {
 		ISBNErrMsg.setFill(Color.BLACK);
 //		//clear Data
 //		checkoutBooks.clear();
+		//reset state
+		isbnNoValid = false;
 
 	}	
 	
@@ -228,13 +243,27 @@ public class LibrarianOprationDetailController {
         });
         
         iSBNField.focusedProperty().addListener((observable, oldValue, newValue) -> bindISBNFieldEvent(newValue));
+//        checkoutBtn.disableProperty().addListener(arg0);
+        checkoutBtn.setDisable(true);
     }
 
 
 
 	@FXML
 	public void btnCheckout_click() {
-		System.out.println("btnLogin_click");
+		if(memberIdValid && isbnNoValid){
+			try {
+				user.checkout(iSBNField.getText(), Long.valueOf(memberIdField.getText()));
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		searchMemberInfo();
+//		System.out.println("btnLogin_click");
 	}
 
 }
