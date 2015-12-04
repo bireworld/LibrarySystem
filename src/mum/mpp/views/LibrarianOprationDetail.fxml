@@ -12,22 +12,22 @@
 			<items>
 				<AnchorPane prefHeight="131.0" prefWidth="598.0">
 					<children>
-						<SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="1200.0">
+						<SplitPane dividerPositions="0.43416666666666665" prefHeight="160.0" prefWidth="1200.0">
 							<items>
 								<AnchorPane fx:id="searchBookHeaderAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="159.0" prefWidth="585.0" styleClass="pane">
 									<children>
-										<TextField fx:id="searchBookNameField" layoutX="83.0" layoutY="49.0" promptText="Enter Book Name" />
+										<TextField fx:id="searchBookNameField" layoutX="169.0" layoutY="50.0" promptText="Enter Book Name" />
 									</children>
 								</AnchorPane>
 								<AnchorPane fx:id="checkoutHeaderAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="pane" stylesheets="@DarkTheme.css">
 									<children>
-										<TextField fx:id="memberIdField" layoutX="132.0" layoutY="21.0" promptText="pls enter the member Id" />
-										<TextField fx:id="iSBNField" layoutX="132.0" layoutY="61.0" promptText="pls enter the ISBN no" />
-										<Button fx:id="checkoutBtn" layoutX="231.0" layoutY="112.0" mnemonicParsing="false" onAction="#btnCheckout_click" text="checkout" />
-										<Text fx:id="memberErrMsg" fill="#d00b0b" layoutX="373.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-										<Text fx:id="ISBNErrMsg" fill="#d00b0b" layoutX="373.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-										<Label layoutX="14.0" layoutY="29.0" text="Member ID" />
-										<Label layoutX="14.0" layoutY="69.0" text="ISBN number" />
+										<TextField fx:id="memberIdField" layoutX="198.0" layoutY="18.0" promptText="pls enter the member Id" />
+										<TextField fx:id="iSBNField" layoutX="198.0" layoutY="58.0" promptText="pls enter the ISBN no" />
+										<Button fx:id="checkoutBtn" layoutX="297.0" layoutY="109.0" mnemonicParsing="false" onAction="#btnCheckout_click" text="checkout" />
+										<Text fx:id="memberErrMsg" fill="#d00b0b" layoutX="439.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+										<Text fx:id="ISBNErrMsg" fill="#d00b0b" layoutX="439.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+										<Label layoutX="80.0" layoutY="26.0" text="Member ID" />
+										<Label layoutX="80.0" layoutY="66.0" text="ISBN number" />
 									</children>
 								</AnchorPane>
 							</items>
@@ -41,7 +41,7 @@
 				</AnchorPane>
 				<AnchorPane fx:id="checkOutAnchor" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="598.0">
 					<children>
-						<SplitPane dividerPositions="0.36666666666666664" minHeight="-Infinity" prefHeight="300.0" prefWidth="600.0" styleClass="pane" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<SplitPane dividerPositions="0.435" minHeight="-Infinity" prefHeight="300.0" prefWidth="600.0" styleClass="pane" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<items>
 								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
 									<children>

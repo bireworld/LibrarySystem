@@ -340,7 +340,7 @@ public class LibrarianOprationDetailController {
 				searchedBookAnchor.setVisible(false);
 
 				if (!isCheckInShow) {
-					((AnchorPane) componentsPane).setMinHeight(400);
+					((AnchorPane) componentsPane).setMinHeight(421);
 					mainSplitPane.getItems().add(2, componentsPane);
 
 					isCheckInShow = true;
