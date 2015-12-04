@@ -166,6 +166,9 @@ public class AdminController {
 		} else if(actionType == ActionType.ADD_BOOK) {
 			AddBookController c = (AddBookController)loader.getController();
 			c.setAdminInterface(adminInterface);
+		} else if(actionType == ActionType.ADD_BOOK_COPY) {
+			AddBookCopyController c = (AddBookCopyController)loader.getController();
+			c.setAdminInterface(adminInterface);
 		}
 	}
 

@@ -20,10 +20,10 @@
                                  <children>
                                     <TableView fx:id="tblvBookSearch" prefHeight="452.0" prefWidth="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
-                                        <TableColumn fx:id="tblcISBN" prefWidth="75.0" text="ISBN" />
-                                        <TableColumn fx:id="tblcBookTitle" prefWidth="75.0" text="Title" />
-                                          <TableColumn fx:id="tblcNumBookCopy" prefWidth="84.0" text="Total Copies" />
-                                          <TableColumn fx:id="tblcMaxCheckoutDuration" prefWidth="112.0" text="Maximum Checkout Duration" />
+                                        <TableColumn fx:id="tblcISBN" minWidth="100.0" prefWidth="-1.0" text="ISBN" />
+                                        <TableColumn fx:id="tblcBookTitle" minWidth="200.0" prefWidth="-1.0" text="Title" />
+                                          <TableColumn fx:id="tblcNumBookCopy" minWidth="120.0" prefWidth="-1.0" text="Total Copies" />
+                                          <TableColumn fx:id="tblcMaxCheckoutDuration" minWidth="200.0" prefWidth="-1.0" text="Maximum Checkout Duration" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -32,11 +32,11 @@
                                  <children>
                                     <GridPane prefHeight="452.0" prefWidth="441.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="22.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="81.0" minWidth="10.0" prefWidth="76.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.0" minWidth="10.0" prefWidth="57.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="110.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="22.0" />
                                       </columnConstraints>
                                       <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -51,6 +51,31 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
+                                       <children>
+                                          <VBox fx:id="vboxRightPane" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                                             <children>
+                                                <Label fx:id="lblrTitle" text="Label" />
+                                                <Label fx:id="lblrISBN" text="Label" />
+                                                <Label fx:id="lblrNumCopies" text="Label" />
+                                                <Label fx:id="lblrAuthors" text="Label" />
+                                             </children>
+                                          </VBox>
+                                          <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                                             <children>
+                                                <Button fx:id="btnAddBookCopies" mnemonicParsing="false" onAction="#btnAddCopies_click" text="Add Copies" />
+                                             </children>
+                                          </StackPane>
+                                          <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                                             <children>
+                                                <Label text="Number of new copies" />
+                                             </children>
+                                          </StackPane>
+                                          <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                                             <children>
+                                                <ComboBox fx:id="cmbfNumCopiesToAdd" prefWidth="150.0" />
+                                             </children>
+                                          </StackPane>
+                                       </children>
                                     </GridPane>
                                  </children>
                               </AnchorPane>
@@ -75,7 +100,7 @@
                            <children>
                               <StackPane prefHeight="30.0" prefWidth="165.0" GridPane.columnSpan="3">
                                  <children>
-                                    <TextField fx:id="txtfSearchBox" promptText="Type book title, ISBN or author name..." />
+                                    <TextField fx:id="txtfSearchBox" promptText="Type book title or ISBN..." />
                                  </children>
                                  <GridPane.margin>
                                     <Insets left="10.0" />
@@ -101,7 +126,7 @@
                               </StackPane>
                               <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="6">
                                  <children>
-                                    <Button fx:id="btnSearch" mnemonicParsing="false" text="Search" />
+                                    <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#btnSearch_click" text="Search" />
                                  </children>
                               </StackPane>
                               <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="7" />
