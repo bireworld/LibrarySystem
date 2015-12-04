@@ -21,8 +21,8 @@
 								</AnchorPane>
 								<AnchorPane fx:id="checkoutHeaderAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="pane" stylesheets="@DarkTheme.css">
 									<children>
-										<TextField fx:id="memberIdField" layoutX="132.0" layoutY="21.0" promptText="press enter to stop input" />
-										<TextField fx:id="iSBNField" layoutX="132.0" layoutY="61.0" promptText="press enter to stop input" />
+										<TextField fx:id="memberIdField" layoutX="132.0" layoutY="21.0" promptText="pls enter the member Id" />
+										<TextField fx:id="iSBNField" layoutX="132.0" layoutY="61.0" promptText="pls enter the ISBN no" />
 										<Button fx:id="checkoutBtn" layoutX="231.0" layoutY="112.0" mnemonicParsing="false" onAction="#btnCheckout_click" text="checkout" />
 										<Text fx:id="memberErrMsg" fill="#d00b0b" layoutX="373.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" />
 										<Text fx:id="ISBNErrMsg" fill="#d00b0b" layoutX="373.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" />
