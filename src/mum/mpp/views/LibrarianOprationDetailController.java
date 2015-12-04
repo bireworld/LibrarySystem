@@ -58,6 +58,8 @@ public class LibrarianOprationDetailController {
 	@FXML
 	private TableColumn<CheckoutRecordVO, Date> thirdColumn;
 	@FXML
+	private TableColumn<CheckoutRecordVO, Date> forthColumn;
+	@FXML
 	private Label isbnNumberLabel;
 	@FXML
 	private Label titleLabel;
@@ -149,6 +151,7 @@ public class LibrarianOprationDetailController {
 					firstColumn.setCellValueFactory(cellData -> cellData.getValue().getiSBNNumber());
 					secondColumn.setCellValueFactory(cellData -> cellData.getValue().getCopyNumber());
 					thirdColumn.setCellValueFactory(cellData -> cellData.getValue().getDueDate());
+					forthColumn.setCellValueFactory(cellData -> cellData.getValue().getCheckinDate());
 				}
 			} catch (ServiceException e) {
 				memberErrMsg.setText(e.getMessage());
@@ -242,6 +245,7 @@ public class LibrarianOprationDetailController {
 				checkinBtn.setVisible(true);
 				checkinDate.setText("");
 			} else {
+				checkinBtn.setVisible(false);
 				checkinDate.setText(object.toString());
 			}
 
