@@ -295,17 +295,22 @@ public class LibrarianOprationDetailController {
 
 	@FXML
 	public void btnCheckout_click() {
-		if (!searchBookNameField.getText().isEmpty()) {
-			DialogUtil.showDialog("Enter Something", "", "Please enter whole are part of book name", AlertType.WARNING);
-			return;
-		}
-		String inputName = searchBookNameField.getText();
-
-		try {
-			user.getBookByName(inputName);
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
+		if(memberIdValid && isbnNoValid){
+ 			try {
+ 				user.checkout(iSBNField.getText(), Long.valueOf(memberIdField.getText()));
+ 			} catch (ServiceException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			} catch (Exception e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}
+ 		}
+ 		searchMemberInfo();
+ 		
+ 		iSBNField.setText("");
+ 		checkoutBtn.setDisable(true);
+ 		initISBNEnv();
 	}
 
 	@FXML
