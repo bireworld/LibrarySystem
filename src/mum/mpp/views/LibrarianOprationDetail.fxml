@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mum.mpp.views.LibrarianOprationDetailController">
 	<children>
-		<SplitPane fx:id="mainSplitPane" dividerPositions="0.25375626043405675, 0.32554257095158595, 0.5" orientation="VERTICAL" prefHeight="600.0" prefWidth="1200.0" styleClass="pane" stylesheets="@DarkTheme.css">
+		<SplitPane fx:id="mainSplitPane" dividerPositions="0.27212020033388984, 0.335559265442404, 0.8464106844741235" orientation="VERTICAL" prefHeight="600.0" prefWidth="1200.0" styleClass="pane" stylesheets="@DarkTheme.css">
 			<items>
 				<AnchorPane prefHeight="131.0" prefWidth="598.0">
 					<children>
@@ -41,7 +41,7 @@
 				</AnchorPane>
 				<AnchorPane fx:id="checkOutAnchor" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="598.0">
 					<children>
-						<SplitPane dividerPositions="0.36666666666666664" prefHeight="300.0" prefWidth="600.0" styleClass="pane" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<SplitPane dividerPositions="0.36666666666666664" minHeight="-Infinity" prefHeight="300.0" prefWidth="600.0" styleClass="pane" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<items>
 								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
 									<children>

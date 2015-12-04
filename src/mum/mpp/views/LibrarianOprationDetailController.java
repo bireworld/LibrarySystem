@@ -264,10 +264,12 @@ public class LibrarianOprationDetailController {
 		checkoutBooksTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showChkOutRecordsDetails(newValue));
 
-		memberIdField.textProperty().addListener(new ChangeListener<String>() {
+		// onblur for member id
+		memberIdField.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (!newValue.isEmpty())
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue,
+					Boolean newPropertyValue) {
+				if (!newPropertyValue)
 				// {
 				// System.out.println("Textfield on focus");
 				// }
@@ -278,33 +280,7 @@ public class LibrarianOprationDetailController {
 			}
 		});
 
-		// onblur for member id
-		/*
-		 * memberIdField.focusedProperty().addListener(new
-		 * ChangeListener<Boolean>() {
-		 * 
-		 * @Override public void changed(ObservableValue<? extends Boolean>
-		 * arg0, Boolean oldPropertyValue, Boolean newPropertyValue) { if
-		 * (!newPropertyValue) // { // System.out.println("Textfield on focus");
-		 * // } // else { searchMemberInfo(); } } });
-		 */
-
-		// iSBNField.focusedProperty().addListener((observable, oldValue,
-		// newValue) -> bindISBNFieldEvent(newValue));
-
-		iSBNField.textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (!newValue.isEmpty())
-				// {
-				// System.out.println("Textfield on focus");
-				// }
-				// else
-				{
-					bindISBNFieldEvent(true);
-				}
-			}
-		});
+		iSBNField.focusedProperty().addListener((observable, oldValue, newValue) -> bindISBNFieldEvent(newValue));
 
 		// checkoutBtn.disableProperty().addListener(arg0);
 		checkoutBtn.setDisable(true);
@@ -364,7 +340,9 @@ public class LibrarianOprationDetailController {
 				searchedBookAnchor.setVisible(false);
 
 				if (!isCheckInShow) {
+					((AnchorPane) componentsPane).setMinHeight(400);
 					mainSplitPane.getItems().add(2, componentsPane);
+
 					isCheckInShow = true;
 				}
 
@@ -389,6 +367,7 @@ public class LibrarianOprationDetailController {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				System.out.println("Search");
+				searchedBookVOs.clear();
 				List<Book> books;
 				try {
 					books = user.getBookByName(newValue);
