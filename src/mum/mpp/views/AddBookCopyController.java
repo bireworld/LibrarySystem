@@ -41,19 +41,19 @@ public class AddBookCopyController {
 	private Button btnSearch;
 	
 	@FXML
-	private TableView tblvBookSearch;
+	private TableView<EditBookSearchBean> tblvBookSearch;
 	
 	@FXML
-	private TableColumn tblcISBN;
+	private TableColumn<EditBookSearchBean, String> tblcISBN;
 	
 	@FXML
-	private TableColumn tblcBookTitle;
+	private TableColumn<EditBookSearchBean, String> tblcBookTitle;
 	
 	@FXML
-	private TableColumn tblcNumBookCopy;
+	private TableColumn<EditBookSearchBean, String> tblcNumBookCopy;
 	
 	@FXML
-	private TableColumn tblcMaxCheckoutDuration;
+	private TableColumn<EditBookSearchBean, String> tblcMaxCheckoutDuration;
 	
 	@FXML
 	private VBox vboxRightPane;
@@ -89,11 +89,30 @@ public class AddBookCopyController {
 	private int currentRowPos;
 	
 	@FXML
+	private Label lblr1;
+	
+	@FXML
 	public void initialize() {
 		initRadioButtons();
 		initTableView();
 		
+		hideRightPanel();
+	}
+	
+	private void hideRightPanel() {
+		lblr1.setVisible(false);
+		cmbfNumCopiesToAdd.setVisible(false);
+		btnAddBookCopies.setVisible(false);
+		
 		vboxRightPane.setVisible(false);
+	}
+	
+	private void showRightPanel() {
+		lblr1.setVisible(true);
+		cmbfNumCopiesToAdd.setVisible(true);
+		btnAddBookCopies.setVisible(true);
+		
+		vboxRightPane.setVisible(true);
 	}
 	
 	private void initRadioButtons() {
@@ -128,7 +147,7 @@ public class AddBookCopyController {
 		cmbfNumCopiesToAdd.setItems(numCopiesList);
 		cmbfNumCopiesToAdd.setValue(1);
 		
-		vboxRightPane.setVisible(true);
+		showRightPanel();
 		
 		EditBookSearchBean book = editBookSearchList.get(pos);
 		
@@ -166,11 +185,19 @@ public class AddBookCopyController {
 			}
 		}
 	
+		List<Author> listAuthors=book.getAuthors();
+		StringBuilder sb=new StringBuilder("*****************\nAuthors :\n");
+		for(Author author: listAuthors) {
+			sb.append(author.getFirstName()+" "+author.getLastName()+"\n"
+					+author.getAddress().getCity()+", "+author.getAddress().getState());
+			sb.append("\n\n");
+		}
+		
 		String copyNumber = "";
 		if(temp!=null) copyNumber=temp.getCopyNumber()-countBooksAdded+" - "+temp.getCopyNumber();
 		String msg = book.getTitle() + ", ISBN: "+book.getiSBNNumber()
-				+"\nAuthor: "+book.getAuthors().toString()+"\nCopy Number : "+copyNumber;
-		DialogUtil.showDialog("Success", "The following book copy has been added:", msg, AlertType.ERROR);
+				+"\nAuthor: "+sb.toString()+"\nCopy Number : "+copyNumber;
+		DialogUtil.showDialog("Success", "The following book copy has been added:", msg, AlertType.INFORMATION);
 		clearFieldsAddBookCopy();
 		
 	}
@@ -187,8 +214,7 @@ public class AddBookCopyController {
 		lblrAuthors.setText("");
 		lblrNumCopies.setText("");
 		cmbfNumCopiesToAdd.setValue(1);
-		vboxRightPane.setVisible(false);
-		
+		hideRightPanel();
 	}
 	
 	@FXML

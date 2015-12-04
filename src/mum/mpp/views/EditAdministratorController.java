@@ -155,7 +155,7 @@ public class EditAdministratorController {
 			@Override
 			public void handle(CellEditEvent e) {
 				((EditAdminSearchBean) e.getTableView().getItems().get(e.getTablePosition().getRow()))
-						.setPhone((String) e.getNewValue());
+						.setStreet((String) e.getNewValue());
 				editPosSet.add(e.getTablePosition().getRow());
 			}
 		});
@@ -165,7 +165,7 @@ public class EditAdministratorController {
 			@Override
 			public void handle(CellEditEvent e) {
 				((EditAdminSearchBean) e.getTableView().getItems().get(e.getTablePosition().getRow()))
-						.setPhone((String) e.getNewValue());
+						.setCity((String) e.getNewValue());
 				editPosSet.add(e.getTablePosition().getRow());
 			}
 		});
@@ -175,7 +175,7 @@ public class EditAdministratorController {
 			@Override
 			public void handle(CellEditEvent e) {
 				((EditAdminSearchBean) e.getTableView().getItems().get(e.getTablePosition().getRow()))
-						.setPhone((String) e.getNewValue());
+						.setState((String) e.getNewValue());
 				editPosSet.add(e.getTablePosition().getRow());
 			}
 		});
@@ -185,7 +185,7 @@ public class EditAdministratorController {
 			@Override
 			public void handle(CellEditEvent e) {
 				((EditAdminSearchBean) e.getTableView().getItems().get(e.getTablePosition().getRow()))
-						.setPhone((String) e.getNewValue());
+						.setZip((String) e.getNewValue());
 				editPosSet.add(e.getTablePosition().getRow());
 			}
 		});

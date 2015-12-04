@@ -51,7 +51,7 @@ public class AdminController {
 	private AdminInterface adminInterface;
 	
 	private final Node rootIcon = new ImageView(
-	        new Image(getClass().getResourceAsStream("/mum/mpp/images/folder.png"))
+	        new Image(getClass().getResourceAsStream("/mum/mpp/images/rootmenu16.png"))
 	    );
 
 	

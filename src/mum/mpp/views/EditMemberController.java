@@ -153,7 +153,7 @@ public class EditMemberController {
 			@Override
 			public void handle(CellEditEvent e) {
 				((EditMemberSearchBean) e.getTableView().getItems().get(e.getTablePosition().getRow()))
-						.setPhone((String) e.getNewValue());
+						.setStreet((String) e.getNewValue());
 				editPosSet.add(e.getTablePosition().getRow());
 			}
 		});
@@ -163,7 +163,7 @@ public class EditMemberController {
 			@Override
 			public void handle(CellEditEvent e) {
 				((EditMemberSearchBean) e.getTableView().getItems().get(e.getTablePosition().getRow()))
-						.setPhone((String) e.getNewValue());
+						.setCity((String) e.getNewValue());
 				editPosSet.add(e.getTablePosition().getRow());
 			}
 		});
@@ -173,7 +173,7 @@ public class EditMemberController {
 			@Override
 			public void handle(CellEditEvent e) {
 				((EditMemberSearchBean) e.getTableView().getItems().get(e.getTablePosition().getRow()))
-						.setPhone((String) e.getNewValue());
+						.setState((String) e.getNewValue());
 				editPosSet.add(e.getTablePosition().getRow());
 			}
 		});
@@ -183,7 +183,7 @@ public class EditMemberController {
 			@Override
 			public void handle(CellEditEvent e) {
 				((EditMemberSearchBean) e.getTableView().getItems().get(e.getTablePosition().getRow()))
-						.setPhone((String) e.getNewValue());
+						.setZip((String) e.getNewValue());
 				editPosSet.add(e.getTablePosition().getRow());
 			}
 		});

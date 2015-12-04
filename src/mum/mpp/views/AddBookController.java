@@ -30,7 +30,7 @@ public class AddBookController {
 	private TextField txtfIsbn;
 	
 	@FXML
-	private ComboBox cmbfMaxCheckoutDuration;
+	private ComboBox<Integer> cmbfMaxCheckoutDuration;
 	
 	@FXML
 	private TextField txtfAuthFirstName;
@@ -60,16 +60,16 @@ public class AddBookController {
 	private TextArea txtaAuthShortBiography;
 	
 	@FXML
-	private TableView tblvAuthorList;
+	private TableView<EditAuthorSearchBean> tblvAuthorList;
 	
 	@FXML
-	private TableColumn tblcFirstName;
+	private TableColumn<EditAuthorSearchBean, String> tblcFirstName;
 	
 	@FXML
-	private TableColumn tblcLastName;
+	private TableColumn<EditAuthorSearchBean, String> tblcLastName;
 	
 	@FXML
-	private TableColumn tblcPhone;
+	private TableColumn<EditAuthorSearchBean, String> tblcPhone;
 	
 	@FXML
 	private Button btnAddAuthor;
@@ -146,8 +146,15 @@ public class AddBookController {
 		try {
 			Book newBook = adminInterface.addNewBook(book);
 			if(newBook!=null) {
-				String msg = newBook.getTitle() + ", ISBN: "+newBook.getiSBNNumber()+"\nAuthor: "+newBook.getAuthors().toString();
-				DialogUtil.showDialog("Success", "The following new book has been added:", msg, AlertType.ERROR);
+				List<Author> listAuthors=newBook.getAuthors();
+				StringBuilder sb=new StringBuilder("*****************\nAuthors :\n");
+				for(Author author: listAuthors) {
+					sb.append(author.getFirstName()+" "+author.getLastName()+"\n"
+							+author.getAddress().getCity()+", "+author.getAddress().getState());
+					sb.append("\n\n");
+				}
+				String msg = newBook.getTitle() + ", ISBN: "+newBook.getiSBNNumber()+"\nAuthor: "+sb.toString();
+				DialogUtil.showDialog("Success", "The following new book has been added:", msg, AlertType.INFORMATION);
 				clearFieldsAddBook();
 			}
 		} catch (ServiceException e) {
